@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=tech.qijin.satellites.user.config.SatellitesUserAutoConfiguration
