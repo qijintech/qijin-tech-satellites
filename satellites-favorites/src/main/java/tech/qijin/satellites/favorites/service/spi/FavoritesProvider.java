@@ -8,7 +8,7 @@ import java.util.Map;
  * @date 2019/1/10
  * 开始做眼保健操：←_← ↑_↑ →_→ ↓_↓
  **/
-public interface FavoritesItemServiceProvider {
+public interface FavoritesProvider {
 
     Map<Long, Object> mapFavoritesItemByIds(List<Long> itemIds);
 }

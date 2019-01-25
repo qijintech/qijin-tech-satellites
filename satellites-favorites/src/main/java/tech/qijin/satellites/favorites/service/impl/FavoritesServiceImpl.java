@@ -8,7 +8,7 @@ import tech.qijin.satellites.favorites.db.model.FaFavorites;
 import tech.qijin.satellites.favorites.service.FavoritesService;
 import tech.qijin.satellites.favorites.service.bo.FavoritesBo;
 import tech.qijin.satellites.favorites.service.helper.FavoritesHelper;
-import tech.qijin.satellites.favorites.service.spi.FavoritesItemServiceProvider;
+import tech.qijin.satellites.favorites.service.spi.FavoritesProvider;
 import tech.qijin.usercenter.client.util.UserUtil;
 import tech.qijin.util4j.aop.annotation.Cas;
 import tech.qijin.util4j.lang.constant.ResEnum;
@@ -32,7 +32,7 @@ public class FavoritesServiceImpl implements FavoritesService {
     @Autowired
     private FavoritesHelper favoritesHelper;
     @Autowired
-    private FavoritesItemServiceProvider itemServiceProvider;
+    private FavoritesProvider favoritesProvider;
 
     @Cas
     @Override
@@ -70,7 +70,7 @@ public class FavoritesServiceImpl implements FavoritesService {
         List<Long> itemIds = favorites.stream()
                 .map(FaFavorites::getItemId)
                 .collect(Collectors.toList());
-        Map<Long, Object> itemMap = itemServiceProvider.mapFavoritesItemByIds(itemIds);
+        Map<Long, Object> itemMap = favoritesProvider.mapFavoritesItemByIds(itemIds);
         return favorites.stream()
                 .map(item -> {
                     FavoritesBo favoritesBo = new FavoritesBo();
