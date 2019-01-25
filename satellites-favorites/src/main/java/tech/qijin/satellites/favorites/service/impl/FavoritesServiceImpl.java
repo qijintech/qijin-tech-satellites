@@ -1,20 +1,25 @@
 package tech.qijin.satellites.favorites.service.impl;
 
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.qijin.satellites.favorites.db.model.FaFavorites;
 import tech.qijin.satellites.favorites.service.FavoritesService;
+import tech.qijin.satellites.favorites.service.bo.FavoritesBo;
 import tech.qijin.satellites.favorites.service.helper.FavoritesHelper;
+import tech.qijin.satellites.favorites.service.spi.FavoritesItemServiceProvider;
 import tech.qijin.usercenter.client.util.UserUtil;
 import tech.qijin.util4j.aop.annotation.Cas;
 import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.utils.MAssert;
 import tech.qijin.util4j.utils.NumberUtil;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author michealyang
@@ -26,6 +31,8 @@ import java.util.Optional;
 public class FavoritesServiceImpl implements FavoritesService {
     @Autowired
     private FavoritesHelper favoritesHelper;
+    @Autowired
+    private FavoritesItemServiceProvider itemServiceProvider;
 
     @Cas
     @Override
@@ -54,8 +61,22 @@ public class FavoritesServiceImpl implements FavoritesService {
     }
 
     @Override
-    public List<FaFavorites> pageFavorites() {
+    public List<FavoritesBo> pageFavorites() {
         Long userId = UserUtil.getUserId();
-        return favoritesHelper.pageFavorites(userId);
+        List<FaFavorites> favorites = favoritesHelper.pageFavorites(userId);
+        if (CollectionUtils.isEmpty(favorites)) {
+            return Collections.emptyList();
+        }
+        List<Long> itemIds = favorites.stream()
+                .map(FaFavorites::getItemId)
+                .collect(Collectors.toList());
+        Map<Long, Object> itemMap = itemServiceProvider.mapFavoritesItemByIds(itemIds);
+        return favorites.stream()
+                .map(item -> {
+                    FavoritesBo favoritesBo = new FavoritesBo();
+                    favoritesBo.setItemId(item.getItemId());
+                    favoritesBo.setItem(itemMap.get(item.getItemId()));
+                    return favoritesBo;
+                }).collect(Collectors.toList());
     }
 }

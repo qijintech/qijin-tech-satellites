@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
  * 开始做眼保健操：←_← ↑_↑ →_→ ↓_↓
  **/
 @Configuration
-@Import(SpiConfiguration.class)
+@Import(FavoritesSpiConfiguration.class)
 @ComponentScan(basePackages = "tech.qijin.satellites.favorites")
 @MapperScan("tech.qijin.satellites.favorites.db.dao")
 public class SatellitesFavoritesAutoConfiguration {

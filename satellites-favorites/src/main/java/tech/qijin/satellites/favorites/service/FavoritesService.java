@@ -1,7 +1,7 @@
 package tech.qijin.satellites.favorites.service;
 
 
-import tech.qijin.satellites.favorites.db.model.FaFavorites;
+import tech.qijin.satellites.favorites.service.bo.FavoritesBo;
 
 import java.util.List;
 
@@ -30,5 +30,5 @@ public interface FavoritesService {
      *
      * @return
      */
-    List<FaFavorites> pageFavorites();
+    List<FavoritesBo> pageFavorites();
 }

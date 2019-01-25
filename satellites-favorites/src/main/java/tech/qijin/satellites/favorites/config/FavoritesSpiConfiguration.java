@@ -3,7 +3,7 @@ package tech.qijin.satellites.favorites.config;
 import org.springframework.beans.factory.serviceloader.ServiceListFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.qijin.satellites.favorites.service.spi.ItemServiceProvider;
+import tech.qijin.satellites.favorites.service.spi.FavoritesItemServiceProvider;
 
 /**
  * @author michealyang
@@ -11,11 +11,11 @@ import tech.qijin.satellites.favorites.service.spi.ItemServiceProvider;
  * 开始做眼保健操：←_← ↑_↑ →_→ ↓_↓
  **/
 @Configuration
-public class SpiConfiguration {
+public class FavoritesSpiConfiguration {
     @Bean
     public ServiceListFactoryBean serviceListFactoryBean() {
         ServiceListFactoryBean serviceListFactoryBean = new ServiceListFactoryBean();
-        serviceListFactoryBean.setServiceType(ItemServiceProvider.class);
+        serviceListFactoryBean.setServiceType(FavoritesItemServiceProvider.class);
         return serviceListFactoryBean;
     }
 }

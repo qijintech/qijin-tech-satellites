@@ -6,7 +6,6 @@ import tech.qijin.satellites.favorites.server.vo.FavoriteReqVo;
 import tech.qijin.satellites.favorites.server.vo.FavoritesResVo;
 import tech.qijin.satellites.favorites.service.FavoritesService;
 import tech.qijin.satellites.favorites.service.bo.FavoritesBo;
-import tech.qijin.satellites.favorites.service.spi.SpiService;
 import tech.qijin.util4j.web.annotation.ChannelRequired;
 import tech.qijin.util4j.web.pojo.ResultVo;
 
@@ -23,8 +22,6 @@ import java.util.stream.Collectors;
 public class FavoritesController {
     @Autowired
     private FavoritesService favoritesService;
-    @Autowired
-    private SpiService spiService;
 
     @ChannelRequired
     @PostMapping("/do")
@@ -43,7 +40,7 @@ public class FavoritesController {
     @ChannelRequired
     @GetMapping("/list")
     public List<FavoritesResVo> pageFavorites() {
-        List<FavoritesBo> favoritesBos = spiService.pageFavorites();
+        List<FavoritesBo> favoritesBos = favoritesService.pageFavorites();
         return favoritesBos.stream()
                 .map(favoritesBo -> {
                     FavoritesResVo favoritesVo = new FavoritesResVo();
