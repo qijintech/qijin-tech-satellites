@@ -20,16 +20,22 @@ import javax.annotation.PostConstruct;
  **/
 @Component
 @Slf4j
-public class WebsocketServer {
+public class WebsocketServer implements Runnable {
     private ChannelFuture serverChannelFuture;
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
 
-    @Autowired
     private WebSocketProperties webSocketProperties;
+    private WebSocketServerInitializer webSocketServerInitializer;
 
-    @PostConstruct
-    public void init() {
+    public WebsocketServer(WebSocketProperties webSocketProperties,
+                           WebSocketServerInitializer webSocketServerInitializer) {
+        this.webSocketProperties = webSocketProperties;
+        this.webSocketServerInitializer = webSocketServerInitializer;
+    }
+
+    @Override
+    public void run() {
         bossGroup = new NioEventLoopGroup(1);
         workerGroup = new NioEventLoopGroup();
         try {
@@ -40,14 +46,16 @@ public class WebsocketServer {
                     .option(ChannelOption.TCP_NODELAY, true) //TCP_NODELAY算法，尽可能发送大块数据，减少充斥的小块数据
                     .childOption(ChannelOption.SO_KEEPALIVE, true)//开启心跳包活机制，就是客户端、服务端建立连接处于ESTABLISHED状态，超过2小时没有交流，机制会被启动
                     .childOption(ChannelOption.RCVBUF_ALLOCATOR, new FixedRecvByteBufAllocator(592048))//配置固定长度接收缓存区分配器
-                    .childHandler(new WebSocketServerInitializer());
+                    .childHandler(webSocketServerInitializer);
 
             serverChannelFuture = b.bind(webSocketProperties.getPort()).sync();
+            log.info(LogFormat.builder().message("WebSocket started")
+                    .put("port", webSocketProperties.getPort()).build());
+            serverChannelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
-            log.error(LogFormat.builder().message("netty interrupted").build(), e);
+            log.error(LogFormat.builder().message("WebSocket interrupted").build(), e);
         } finally {
-            bossGroup.shutdownGracefully();
-            workerGroup.shutdownGracefully();
+            close();
         }
     }
 

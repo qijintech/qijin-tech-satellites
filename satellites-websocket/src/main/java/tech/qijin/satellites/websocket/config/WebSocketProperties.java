@@ -11,5 +11,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "websocket.netty")
 @Data
 public class WebSocketProperties {
-    private Integer port;
+    private Integer port = 3301;
+    private String uri = "/connect";
 }
