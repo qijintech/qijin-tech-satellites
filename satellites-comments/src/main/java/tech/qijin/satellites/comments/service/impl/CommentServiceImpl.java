@@ -9,7 +9,6 @@ import tech.qijin.satellites.comments.db.model.CmComment;
 import tech.qijin.satellites.comments.service.bo.CommentBo;
 import tech.qijin.satellites.comments.service.CommentService;
 import tech.qijin.satellites.comments.service.helper.CommentHelper;
-import tech.qijin.usercenter.client.util.UserUtil;
 import tech.qijin.util4j.trace.util.ChannelUtil;
 import tech.qijin.util4j.utils.NumberUtil;
 
@@ -34,7 +33,7 @@ public class CommentServiceImpl implements CommentService {
     public CmComment submit(Long baseId, Long replyId, String content) {
         CmComment comment = new CmComment();
         //TODO check baseId and replyId
-        comment.setUserId(UserUtil.getUserId());
+//        comment.setUserId(UserUtil.getUserId());
         comment.setBaseId(baseId);
         comment.setReplyId(replyId);
         comment.setChannel(ChannelUtil.getChannel());
@@ -81,7 +80,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     private List<Long> getCommentIds(CmComment baseComment, List<CmComment> replyComments) {
-        Long userId = UserUtil.getUserId();
+//        Long userId = UserUtil.getUserId();
+        Long userId = 0L;
         if (NumberUtil.nullOrLeZero(userId)) {
             return Collections.emptyList();
         }

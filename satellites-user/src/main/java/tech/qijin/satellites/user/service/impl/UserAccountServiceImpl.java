@@ -74,7 +74,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Log
     @Override
     public boolean signOut(String token) {
-        return RedisUtil.del(token) == 1;
+        return RedisUtil.dele(token) == 1;
     }
 
     private String genAndSaveToken(UserAccount userAccount) {
@@ -83,7 +83,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         user.setUserName(userAccount.getUserName());
         user.setChannel(ChannelUtil.getChannel());
         String token = TokenGenerator.gen();
-        RedisUtil.setObject(token, user);
+//        RedisUtil.setObject(token, user);
         return token;
     }
 
