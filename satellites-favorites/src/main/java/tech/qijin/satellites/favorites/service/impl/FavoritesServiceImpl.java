@@ -9,7 +9,7 @@ import tech.qijin.satellites.favorites.service.FavoritesService;
 import tech.qijin.satellites.favorites.service.bo.FavoritesBo;
 import tech.qijin.satellites.favorites.service.helper.FavoritesHelper;
 import tech.qijin.satellites.favorites.service.spi.FavoritesProvider;
-import tech.qijin.usercenter.client.util.UserUtil;
+import tech.qijin.satellites.user.auth.UserUtil;
 import tech.qijin.util4j.aop.annotation.Cas;
 import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.utils.MAssert;

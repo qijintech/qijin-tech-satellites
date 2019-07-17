@@ -70,6 +70,7 @@ public class WebSocketHandshakeHandler extends ChannelInboundHandlerAdapter {
                 sendHttpResponse(ctx, req, new DefaultFullHttpResponse(HTTP_1_1, UNAUTHORIZED));
                 return;
             }
+            WebSocketHandler.setTraceIdAndEnv(ctx.channel(), req);
             Long uid = webSocketProvider.authToken(token);
 
             final WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(

@@ -11,8 +11,6 @@ import tech.qijin.satellites.user.server.vo.UserReqVo;
 import tech.qijin.satellites.user.server.vo.UserResVo;
 import tech.qijin.satellites.user.service.UserAccountService;
 import tech.qijin.satellites.user.service.bo.UserBo;
-import tech.qijin.util4j.aop.annotation.LogAndTimed;
-import tech.qijin.util4j.aop.annotation.Timed;
 import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.utils.ConvertUtil;
 import tech.qijin.util4j.utils.ValidationUtil;

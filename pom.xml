@@ -21,6 +21,7 @@
         <module>satellites-user</module>
         <module>satellites-order</module>
         <module>satellites-item</module>
+        <module>satellites-websocket</module>
     </modules>
 
     <properties>
@@ -63,15 +64,28 @@
             <groupId>tech.qijin.util4j</groupId>
             <artifactId>util4j-cache</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>tech.qijin.util4j</groupId>
-            <artifactId>util4j-cache</artifactId>
+            <groupId>tech.qijin.satellites</groupId>
+            <artifactId>satellites-item</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>tech.qijin.usercenter</groupId>
-            <artifactId>usercenter-client</artifactId>
-            <version>${usercenter.client.version}</version>
+            <groupId>tech.qijin.satellites</groupId>
+            <artifactId>satellites-comments</artifactId>
+            <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>tech.qijin.satellites</groupId>
+            <artifactId>satellites-favorites</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>tech.qijin.satellites</groupId>
+            <artifactId>satellites-user</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
     </dependencies>
 
     <distributionManagement>

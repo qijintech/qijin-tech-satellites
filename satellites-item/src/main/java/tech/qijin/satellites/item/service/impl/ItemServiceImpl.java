@@ -10,12 +10,10 @@ import tech.qijin.satellites.item.db.model.ItemModel;
 import tech.qijin.satellites.item.db.model.ItemTag;
 import tech.qijin.satellites.item.service.ItemService;
 import tech.qijin.satellites.item.service.bo.ItemDetailBo;
-import tech.qijin.satellites.item.service.bo.ItemInfoBo;
+import tech.qijin.satellites.item.service.bo.ItemBo;
 import tech.qijin.satellites.item.service.helper.ItemInfoHelper;
 import tech.qijin.satellites.item.service.helper.ItemModelHelper;
 import tech.qijin.satellites.item.service.helper.ItemTagHelper;
-import tech.qijin.util4j.lang.constant.ResEnum;
-import tech.qijin.util4j.utils.MAssert;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +38,7 @@ public class ItemServiceImpl implements ItemService {
     private ItemTagHelper itemTagHelper;
 
     @Override
-    public List<ItemInfoBo> pageItemInfoBos() {
+    public List<ItemBo> pageItemBos() {
         List<ItemInfo> itemInfos = itemInfoHelper.pageItemInfo();
         if (CollectionUtils.isEmpty(itemInfos)) {
             return Collections.emptyList();
@@ -48,7 +46,7 @@ public class ItemServiceImpl implements ItemService {
         List<Long> itemIds = itemInfos.stream().map(ItemInfo::getId).collect(Collectors.toList());
         Map<Long, ItemModel> itemAndModelMap = itemModelHelper.mapItemAndFirstItemModelByItemIds(itemIds);
         return itemInfos.stream().map(itemInfo -> {
-            ItemInfoBo itemInfoBo = new ItemInfoBo();
+            ItemBo itemInfoBo = new ItemBo();
             itemInfoBo.setItemInfo(itemInfo);
             itemInfoBo.setItemModel(itemAndModelMap.get(itemInfo.getId()));
             return itemInfoBo;
@@ -72,11 +70,11 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemModel> listItemModel(Long itemId) {
-        return null;
+        return itemModelHelper.listItemModelByItemId(itemId);
     }
 
     @Override
     public List<ItemTag> listItemTags(Long itemId) {
-        return null;
+        return itemTagHelper.listItemTagByItemId(itemId);
     }
 }

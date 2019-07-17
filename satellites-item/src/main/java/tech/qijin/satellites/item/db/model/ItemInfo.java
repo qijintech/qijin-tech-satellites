@@ -1,6 +1,7 @@
 package tech.qijin.satellites.item.db.model;
 
 import java.util.Date;
+import tech.qijin.satellites.item.base.ItemStatus;
 import tech.qijin.util4j.trace.pojo.Channel;
 import tech.qijin.util4j.trace.pojo.EnvEnum;
 
@@ -11,7 +12,7 @@ public class ItemInfo {
 
     private String introduction;
 
-    private Byte status;
+    private ItemStatus status;
 
     private Channel channel;
 
@@ -47,11 +48,11 @@ public class ItemInfo {
         this.introduction = introduction == null ? null : introduction.trim();
     }
 
-    public Byte getStatus() {
+    public ItemStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(ItemStatus status) {
         this.status = status;
     }
 

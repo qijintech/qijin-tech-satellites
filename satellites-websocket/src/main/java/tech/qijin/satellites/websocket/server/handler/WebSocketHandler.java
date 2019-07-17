@@ -10,9 +10,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tech.qijin.satellites.websocket.config.WebSocketProperties;
+import tech.qijin.satellites.websocket.server.WebSocketUserHolder;
 import tech.qijin.satellites.websocket.spi.WebSocketProvider;
+import tech.qijin.util4j.lang.constant.Const;
+import tech.qijin.util4j.trace.pojo.EnvEnum;
+import tech.qijin.util4j.trace.pojo.Trace;
+import tech.qijin.util4j.trace.util.EnvUtil;
+import tech.qijin.util4j.trace.util.TraceUtil;
+import tech.qijin.util4j.utils.LogFormat;
 
 import java.util.List;
+import java.util.UUID;
 
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
@@ -74,6 +82,10 @@ public class WebSocketHandler extends WebSocketProtocolHandler {
 
     private static final AttributeKey<WebSocketServerHandshaker> HANDSHAKER_ATTR_KEY =
             AttributeKey.valueOf(WebSocketServerHandshaker.class, "HANDSHAKER");
+    private static final AttributeKey<String> TRACE_ATTR_KEY =
+            AttributeKey.valueOf(String.class, "TRACE");
+    private static final AttributeKey<EnvEnum> ENV_ATTR_KEY =
+            AttributeKey.valueOf(EnvEnum.class, "ENV");
 
     private final String websocketPath;
     private final String subprotocols;
@@ -148,9 +160,13 @@ public class WebSocketHandler extends WebSocketProtocolHandler {
     @Override
     protected void decode(ChannelHandlerContext ctx, WebSocketFrame frame, List<Object> out) throws Exception {
         if (frame instanceof CloseWebSocketFrame) {
+            TraceUtil.setTraceId(getTraceId(ctx.channel()));
+            log.info(LogFormat.builder().message("closing websocket")
+                    .put("userId", WebSocketUserHolder.getUserId(ctx.channel())).build());
             WebSocketServerHandshaker handshaker = getHandshaker(ctx.channel());
             if (handshaker != null) {
                 frame.retain();
+                WebSocketUserHolder.remove(ctx.channel());
                 handshaker.close(ctx.channel(), (CloseWebSocketFrame) frame);
             } else {
                 ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
@@ -178,6 +194,22 @@ public class WebSocketHandler extends WebSocketProtocolHandler {
 
     static void setHandshaker(Channel channel, WebSocketServerHandshaker handshaker) {
         channel.attr(HANDSHAKER_ATTR_KEY).set(handshaker);
+    }
+
+    public static void setTraceIdAndEnv(Channel channel, FullHttpRequest req) {
+        EnvEnum env = req.uri().startsWith(Const.ENV_VIRTUAL_HOST) ? EnvEnum.TEST : EnvEnum.PRODUCT;
+        TraceUtil.setTraceId();
+        EnvUtil.setEnv(env);
+        channel.attr(TRACE_ATTR_KEY).set(TraceUtil.getTraceId());
+        channel.attr(ENV_ATTR_KEY).set(EnvUtil.getEnv());
+    }
+
+    public static String getTraceId(Channel channel) {
+        return channel.attr(TRACE_ATTR_KEY).get();
+    }
+
+    public static EnvEnum getEnv(Channel channel) {
+        return channel.attr(ENV_ATTR_KEY).get();
     }
 
     static ChannelHandler forbiddenHttpRequestResponder() {

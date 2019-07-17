@@ -33,6 +33,13 @@ public class WebSocketUserHolder {
         channel.attr(USER_ATTR_KEY).set(uid);
     }
 
+    public static void remove(Channel channel) {
+        Long userId = getUserId(channel);
+        if (userId != null) {
+            userChannelMap.remove(userId);
+        }
+    }
+
     public static Optional<Channel> getChannel(Long uid) {
         return Optional.ofNullable(userChannelMap.get(uid));
     }

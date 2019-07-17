@@ -3,7 +3,7 @@ package tech.qijin.satellites.item.service;
 import tech.qijin.satellites.item.db.model.ItemModel;
 import tech.qijin.satellites.item.db.model.ItemTag;
 import tech.qijin.satellites.item.service.bo.ItemDetailBo;
-import tech.qijin.satellites.item.service.bo.ItemInfoBo;
+import tech.qijin.satellites.item.service.bo.ItemBo;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +20,7 @@ public interface ItemService {
      *
      * @return
      */
-    List<ItemInfoBo> pageItemInfoBos();
+    List<ItemBo> pageItemBos();
 
     /**
      * 查看item详情

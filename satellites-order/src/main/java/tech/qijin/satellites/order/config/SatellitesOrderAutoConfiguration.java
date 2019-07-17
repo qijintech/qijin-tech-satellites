@@ -1,4 +1,4 @@
-package tech.qijin.satellites.item.config;
+package tech.qijin.satellites.order.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Import;
  * 开始做眼保健操：←_← ↑_↑ →_→ ↓_↓
  **/
 @Configuration
-@Import(ItemSpiConfiguration.class)
-@ComponentScan(basePackages = "tech.qijin.satellites.item")
-@MapperScan("tech.qijin.satellites.item.db.dao")
-public class SatellitesItemAutoConfiguration {
+@Import(OrderSpiConfiguration.class)
+@ComponentScan(basePackages = "tech.qijin.satellites.order")
+@MapperScan("tech.qijin.satellites.order.db.dao")
+public class SatellitesOrderAutoConfiguration {
 }

@@ -9,6 +9,6 @@ import tech.qijin.satellites.item.db.model.ItemInfoExtend;
  * 开始做眼保健操：←_← ↑_↑ →_→ ↓_↓
  **/
 @Data
-public class ItemDetailBo extends ItemInfoBo {
+public class ItemDetailBo extends ItemBo {
     private ItemInfoExtend itemInfoExtend;
 }
