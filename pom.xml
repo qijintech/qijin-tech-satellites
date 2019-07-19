@@ -26,7 +26,6 @@
 
 	<properties>
 		<util4j.project.version>1.0.0</util4j.project.version>
-		<mysql.connector.version>5.1.47</mysql.connector.version>
 		<usercenter.client.version>1.0.0-SNAPSHOT</usercenter.client.version>
 	</properties>
 
@@ -89,7 +88,7 @@
 		</dependency>
 		<dependency>
 			<groupId>tech.qijin.util4j</groupId>
-			<artifactId>util4j-cache</artifactId>
+			<artifactId>util4j-redis</artifactId>
 		</dependency>
 	</dependencies>
 
