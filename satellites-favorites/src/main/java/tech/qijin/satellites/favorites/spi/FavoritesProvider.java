@@ -1,4 +1,4 @@
-package tech.qijin.satellites.favorites.service.spi;
+package tech.qijin.satellites.favorites.spi;
 
 import java.util.List;
 import java.util.Map;

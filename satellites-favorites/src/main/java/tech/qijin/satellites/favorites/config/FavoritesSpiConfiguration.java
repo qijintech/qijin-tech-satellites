@@ -3,7 +3,7 @@ package tech.qijin.satellites.favorites.config;
 import org.springframework.beans.factory.serviceloader.ServiceListFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.qijin.satellites.favorites.service.spi.FavoritesProvider;
+import tech.qijin.satellites.favorites.spi.FavoritesProvider;
 
 /**
  * @author michealyang
