@@ -7,9 +7,8 @@ import org.springframework.web.servlet.ModelAndView;
 import tech.qijin.satellites.user.annotation.FreeAccess;
 import tech.qijin.satellites.user.auth.UserUtil;
 import tech.qijin.satellites.user.auth.pojo.User;
-import tech.qijin.util4j.cache.redis.RedisUtil;
+import tech.qijin.util4j.cache.CacheUtil;
 import tech.qijin.util4j.lang.constant.ResEnum;
-import tech.qijin.util4j.utils.ConvertUtil;
 import tech.qijin.util4j.utils.MAssert;
 import tech.qijin.util4j.web.util.ServletUtil;
 
@@ -45,7 +44,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         Optional<String> tokenOpt = ServletUtil.getHeader(request, "token");
         return tokenOpt.map(token -> {
-            User user = (User) RedisUtil.getObject(token);
+            User user = (User) CacheUtil.getObject(token);
             MAssert.isTrue(user != null, ResEnum.UNAUTHORIZED);
             UserUtil.setUser(user);
             return true;

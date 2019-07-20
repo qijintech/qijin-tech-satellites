@@ -15,7 +15,7 @@ import tech.qijin.satellites.user.service.helper.UserAccountHelper;
 import tech.qijin.satellites.user.service.helper.UserInfoHelper;
 import tech.qijin.util4j.aop.annotation.Log;
 import tech.qijin.util4j.aop.annotation.Timed;
-import tech.qijin.util4j.cache.redis.RedisUtil;
+import tech.qijin.util4j.cache.CacheUtil;
 import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.trace.util.ChannelUtil;
 import tech.qijin.util4j.utils.MAssert;
@@ -74,7 +74,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Log
     @Override
     public boolean signOut(String token) {
-        return RedisUtil.dele(token) == 1;
+        return CacheUtil.dele(token) == 1;
     }
 
     private String genAndSaveToken(UserAccount userAccount) {
@@ -83,7 +83,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         user.setUserName(userAccount.getUserName());
         user.setChannel(ChannelUtil.getChannel());
         String token = TokenGenerator.gen();
-//        RedisUtil.setObject(token, user);
+//        CacheUtil.setObject(token, user);
         return token;
     }
 
