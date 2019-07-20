@@ -1,14 +1,16 @@
 package tech.qijin.satellites.user.auth.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import tech.qijin.satellites.user.annotation.FreeAccess;
 import tech.qijin.satellites.user.auth.UserUtil;
 import tech.qijin.satellites.user.auth.pojo.User;
-import tech.qijin.util4j.cache.CacheUtil;
 import tech.qijin.util4j.lang.constant.ResEnum;
+import tech.qijin.util4j.redis.RedisUtil;
+import tech.qijin.util4j.utils.ConvertUtil;
 import tech.qijin.util4j.utils.MAssert;
 import tech.qijin.util4j.web.util.ServletUtil;
 
@@ -19,6 +21,9 @@ import java.util.Optional;
 
 @Slf4j
 public class AuthInterceptor implements HandlerInterceptor {
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     private static final String GROUP_ID = "tech.qijin";
 
@@ -44,7 +49,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         Optional<String> tokenOpt = ServletUtil.getHeader(request, "token");
         return tokenOpt.map(token -> {
-            User user = (User) CacheUtil.getObject(token);
+            User user = (User) redisUtil.getObject(token);
             MAssert.isTrue(user != null, ResEnum.UNAUTHORIZED);
             UserUtil.setUser(user);
             return true;
