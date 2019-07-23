@@ -22,6 +22,7 @@
 		<module>satellites-order</module>
 		<module>satellites-item</module>
 		<module>satellites-websocket</module>
+		<module>satellites-rank</module>
 	</modules>
 
 	<properties>
