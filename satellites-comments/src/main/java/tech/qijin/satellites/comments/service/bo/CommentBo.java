@@ -1,10 +1,10 @@
 package tech.qijin.satellites.comments.service.bo;
 
+import java.util.List;
+
 import lombok.Data;
 import lombok.ToString;
 import tech.qijin.satellites.comments.db.model.CmComment;
-
-import java.util.List;
 
 /**
  * @author michealyang

@@ -1,17 +1,17 @@
 package tech.qijin.satellites.comments.test;
 
-import com.alibaba.fastjson.JSON;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.alibaba.fastjson.JSON;
+
 import tech.qijin.satellites.comments.db.model.CmComment;
 import tech.qijin.satellites.comments.service.CommentService;
 import tech.qijin.satellites.comments.service.bo.CommentBo;
-import tech.qijin.usercenter.client.pojo.User;
-import tech.qijin.usercenter.client.util.UserUtil;
 import tech.qijin.util4j.utils.NumberUtil;
-
-import java.util.List;
 
 /**
  * @author michealyang
@@ -33,21 +33,10 @@ public class CommentServiceTest extends BaseTest {
 
     @Test
     public void reply() {
-        User user = new User();
-        user.setUserId(10010L);
-        UserUtil.setUser(user);
-        CmComment comment = commentService.submit(4L, 4L, "来自" + user.getUserId() + "的回复");
-        Assert.assertNotNull(comment);
-        Assert.assertTrue(NumberUtil.gtZero(comment.getId()));
-        log.info("commentId={}", comment.getId());
     }
 
     @Test
     public void replyReply() {
-        User user = new User();
-        user.setUserId(10000L);
-        UserUtil.setUser(user);
-        commentService.submit(4L, 5L, "来自" + user.getUserId() + "的回复");
     }
 
     @Test

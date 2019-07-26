@@ -1,13 +1,14 @@
 package tech.qijin.satellites.websocket.server.handler;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import tech.qijin.satellites.websocket.server.WebSocketUserHolder;
 import tech.qijin.satellites.websocket.spi.WebSocketProvider;
 import tech.qijin.util4j.utils.LogFormat;

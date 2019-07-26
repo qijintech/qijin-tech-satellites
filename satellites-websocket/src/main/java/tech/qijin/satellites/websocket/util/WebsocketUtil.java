@@ -1,12 +1,12 @@
 package tech.qijin.satellites.websocket.util;
 
+import java.util.Optional;
+
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import lombok.extern.slf4j.Slf4j;
 import tech.qijin.satellites.websocket.server.WebSocketUserHolder;
 import tech.qijin.util4j.utils.LogFormat;
-
-import java.util.Optional;
 
 /**
  * @author michealyang

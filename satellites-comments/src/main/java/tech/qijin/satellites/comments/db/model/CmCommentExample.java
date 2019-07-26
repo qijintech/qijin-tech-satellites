@@ -3,6 +3,7 @@ package tech.qijin.satellites.comments.db.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import tech.qijin.util4j.trace.pojo.Channel;
 import tech.qijin.util4j.trace.pojo.EnvEnum;
 

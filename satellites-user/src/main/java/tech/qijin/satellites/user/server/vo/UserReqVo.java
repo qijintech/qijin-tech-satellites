@@ -1,9 +1,9 @@
 package tech.qijin.satellites.user.server.vo;
 
-import lombok.Data;
-
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
+
+import lombok.Data;
 
 /**
  * @author michealyang

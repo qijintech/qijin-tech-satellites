@@ -2,11 +2,13 @@ package tech.qijin.satellites.item.db.mapper;
 
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ibatis.jdbc.SQL;
+
 import tech.qijin.satellites.item.db.model.ItemInfoExtend;
+import tech.qijin.satellites.item.db.model.ItemInfoExtendExample;
 import tech.qijin.satellites.item.db.model.ItemInfoExtendExample.Criteria;
 import tech.qijin.satellites.item.db.model.ItemInfoExtendExample.Criterion;
-import tech.qijin.satellites.item.db.model.ItemInfoExtendExample;
 
 public class ItemInfoExtendSqlProvider {
 

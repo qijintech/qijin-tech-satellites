@@ -2,11 +2,13 @@ package tech.qijin.satellites.comments.db.mapper;
 
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ibatis.jdbc.SQL;
+
 import tech.qijin.satellites.comments.db.model.CmComment;
+import tech.qijin.satellites.comments.db.model.CmCommentExample;
 import tech.qijin.satellites.comments.db.model.CmCommentExample.Criteria;
 import tech.qijin.satellites.comments.db.model.CmCommentExample.Criterion;
-import tech.qijin.satellites.comments.db.model.CmCommentExample;
 
 public class CmCommentSqlProvider {
 

@@ -1,8 +1,8 @@
 package tech.qijin.satellites.user.server.vo;
 
-import lombok.Data;
-
 import javax.annotation.Nullable;
+
+import lombok.Data;
 
 /**
  * @author michealyang

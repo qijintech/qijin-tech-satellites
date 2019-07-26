@@ -1,6 +1,7 @@
 package tech.qijin.satellites.user.db.model;
 
 import java.util.Date;
+
 import tech.qijin.satellites.user.base.Source;
 import tech.qijin.util4j.trace.pojo.Channel;
 import tech.qijin.util4j.trace.pojo.EnvEnum;

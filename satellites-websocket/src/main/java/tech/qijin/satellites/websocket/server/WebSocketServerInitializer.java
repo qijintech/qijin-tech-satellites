@@ -1,13 +1,14 @@
 package tech.qijin.satellites.websocket.server;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.stream.ChunkedWriteHandler;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import tech.qijin.satellites.websocket.server.handler.TextWebSocketFrameHandler;
 import tech.qijin.satellites.websocket.server.handler.WebSocketHandler;
 

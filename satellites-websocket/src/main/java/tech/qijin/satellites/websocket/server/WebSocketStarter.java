@@ -1,12 +1,13 @@
 package tech.qijin.satellites.websocket.server;
 
-import lombok.extern.slf4j.Slf4j;
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
 import tech.qijin.satellites.websocket.config.WebSocketProperties;
 import tech.qijin.util4j.utils.LogFormat;
-
-import javax.annotation.PostConstruct;
 
 /**
  * @author michealyang

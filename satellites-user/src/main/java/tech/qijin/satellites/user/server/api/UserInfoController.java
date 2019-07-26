@@ -1,8 +1,15 @@
 package tech.qijin.satellites.user.server.api;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.extern.slf4j.Slf4j;
 import tech.qijin.satellites.user.db.model.UserInfo;
 import tech.qijin.satellites.user.server.vo.UserInfoReqVo;
 import tech.qijin.satellites.user.server.vo.UserInfoResVo;
@@ -13,8 +20,6 @@ import tech.qijin.util4j.utils.ConvertUtil;
 import tech.qijin.util4j.utils.ValidationUtil;
 import tech.qijin.util4j.web.annotation.ChannelRequired;
 import tech.qijin.util4j.web.pojo.ResultVo;
-
-import java.util.Optional;
 
 /**
  * 用户信息相关接口

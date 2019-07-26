@@ -1,10 +1,9 @@
 package tech.qijin.satellites.comments.service.helper;
 
-import tech.qijin.satellites.comments.db.model.CmComment;
-import tech.qijin.satellites.comments.service.bo.CommentBo;
-
 import java.util.List;
 import java.util.Map;
+
+import tech.qijin.satellites.comments.db.model.CmComment;
 
 /**
  * @author michealyang

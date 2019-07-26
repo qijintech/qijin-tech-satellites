@@ -1,9 +1,9 @@
 package tech.qijin.satellites.user.auth.pojo;
 
+import java.io.Serializable;
+
 import lombok.Data;
 import tech.qijin.util4j.trace.pojo.Channel;
-
-import java.io.Serializable;
 
 /**
  * @author michealyang

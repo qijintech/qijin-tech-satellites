@@ -1,9 +1,16 @@
 package tech.qijin.satellites.favorites.service.impl;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import lombok.extern.slf4j.Slf4j;
 import tech.qijin.satellites.favorites.db.model.FaFavorites;
 import tech.qijin.satellites.favorites.service.FavoritesService;
 import tech.qijin.satellites.favorites.service.bo.FavoritesBo;
@@ -14,12 +21,6 @@ import tech.qijin.util4j.aop.annotation.Cas;
 import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.utils.MAssert;
 import tech.qijin.util4j.utils.NumberUtil;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author michealyang

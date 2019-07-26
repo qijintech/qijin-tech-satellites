@@ -3,6 +3,7 @@ package tech.qijin.satellites.order.config;
 import org.springframework.beans.factory.serviceloader.ServiceListFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import tech.qijin.satellites.order.service.spi.ItemServiceProvider;
 
 /**

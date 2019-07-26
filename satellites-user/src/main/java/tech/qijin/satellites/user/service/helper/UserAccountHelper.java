@@ -1,9 +1,9 @@
 package tech.qijin.satellites.user.service.helper;
 
+import java.util.Optional;
+
 import tech.qijin.satellites.user.base.Source;
 import tech.qijin.satellites.user.db.model.UserAccount;
-
-import java.util.Optional;
 
 /**
  * @author michealyang

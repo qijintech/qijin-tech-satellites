@@ -1,9 +1,14 @@
 package tech.qijin.satellites.favorites.service.helper.impl;
 
-import com.github.pagehelper.PageHelper;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.PageHelper;
+
+import lombok.extern.slf4j.Slf4j;
 import tech.qijin.satellites.favorites.db.dao.FaFavoritesDao;
 import tech.qijin.satellites.favorites.db.model.FaFavorites;
 import tech.qijin.satellites.favorites.db.model.FaFavoritesExample;
@@ -15,9 +20,6 @@ import tech.qijin.util4j.trace.util.ChannelUtil;
 import tech.qijin.util4j.utils.MAssert;
 import tech.qijin.util4j.utils.NumberUtil;
 import tech.qijin.util4j.web.util.PageHelperProxy;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * @author michealyang

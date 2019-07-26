@@ -1,10 +1,13 @@
 package tech.qijin.satellites.user.service.impl;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Optional;
+
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import lombok.extern.slf4j.Slf4j;
 import tech.qijin.satellites.user.auth.pojo.User;
 import tech.qijin.satellites.user.base.Source;
 import tech.qijin.satellites.user.db.model.UserAccount;
@@ -20,8 +23,6 @@ import tech.qijin.util4j.trace.util.ChannelUtil;
 import tech.qijin.util4j.utils.MAssert;
 import tech.qijin.util4j.utils.TokenGenerator;
 import tech.qijin.util4j.utils.ValidationUtil;
-
-import java.util.Optional;
 
 /**
  * @author michealyang

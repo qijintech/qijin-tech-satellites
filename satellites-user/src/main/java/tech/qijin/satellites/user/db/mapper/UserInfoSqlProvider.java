@@ -2,11 +2,13 @@ package tech.qijin.satellites.user.db.mapper;
 
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ibatis.jdbc.SQL;
+
 import tech.qijin.satellites.user.db.model.UserInfo;
+import tech.qijin.satellites.user.db.model.UserInfoExample;
 import tech.qijin.satellites.user.db.model.UserInfoExample.Criteria;
 import tech.qijin.satellites.user.db.model.UserInfoExample.Criterion;
-import tech.qijin.satellites.user.db.model.UserInfoExample;
 
 public class UserInfoSqlProvider {
 

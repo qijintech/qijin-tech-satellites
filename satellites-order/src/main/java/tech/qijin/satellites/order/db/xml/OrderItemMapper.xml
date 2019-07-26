@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.qijin.satellites.order.db.mapper.OrderItemMapper">
+  <resultMap id="BaseResultMap" type="tech.qijin.satellites.order.db.model.OrderItem">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="sku_id" jdbcType="INTEGER" property="skuId" />
+    <result column="sku_name" jdbcType="VARCHAR" property="skuName" />
+    <result column="sku_pic" jdbcType="VARCHAR" property="skuPic" />
+    <result column="sku_desc" jdbcType="VARCHAR" property="skuDesc" />
+    <result column="sku_origin_price" jdbcType="DECIMAL" property="skuOriginPrice" />
+    <result column="sku_sales_price" jdbcType="DECIMAL" property="skuSalesPrice" />
+    <result column="sku_order_amount" jdbcType="DECIMAL" property="skuOrderAmount" />
+    <result column="item_reduced_amount" jdbcType="DECIMAL" property="itemReducedAmount" />
+    <result column="order_price_type" jdbcType="TINYINT" property="orderPriceType" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="sku_unit" jdbcType="VARCHAR" property="skuUnit" />
+    <result column="sku_unit_desc" jdbcType="VARCHAR" property="skuUnitDesc" />
+    <result column="order_stock" jdbcType="INTEGER" property="orderStock" />
+    <result column="valid" jdbcType="TINYINT" property="valid" />
+    <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
+    <result column="utime" jdbcType="TIMESTAMP" property="utime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_id, order_no, sku_id, sku_name, sku_pic, sku_desc, sku_origin_price, sku_sales_price, 
+    sku_order_amount, item_reduced_amount, order_price_type, category_id, quantity, sku_unit, 
+    sku_unit_desc, order_stock, valid, ctime, utime
+  </sql>
+  <select id="selectByExample" parameterType="tech.qijin.satellites.order.db.model.OrderItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from order_item
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="tech.qijin.satellites.order.db.model.OrderItemExample">
+    delete from order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="tech.qijin.satellites.order.db.model.OrderItem" useGeneratedKeys="true">
+    insert into order_item (order_id, order_no, sku_id, 
+      sku_name, sku_pic, sku_desc, 
+      sku_origin_price, sku_sales_price, sku_order_amount, 
+      item_reduced_amount, order_price_type, category_id, 
+      quantity, sku_unit, sku_unit_desc, 
+      order_stock, valid, ctime, 
+      utime)
+    values (#{orderId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{skuId,jdbcType=INTEGER}, 
+      #{skuName,jdbcType=VARCHAR}, #{skuPic,jdbcType=VARCHAR}, #{skuDesc,jdbcType=VARCHAR}, 
+      #{skuOriginPrice,jdbcType=DECIMAL}, #{skuSalesPrice,jdbcType=DECIMAL}, #{skuOrderAmount,jdbcType=DECIMAL}, 
+      #{itemReducedAmount,jdbcType=DECIMAL}, #{orderPriceType,jdbcType=TINYINT}, #{categoryId,jdbcType=INTEGER}, 
+      #{quantity,jdbcType=INTEGER}, #{skuUnit,jdbcType=VARCHAR}, #{skuUnitDesc,jdbcType=VARCHAR}, 
+      #{orderStock,jdbcType=INTEGER}, #{valid,jdbcType=TINYINT}, #{ctime,jdbcType=TIMESTAMP}, 
+      #{utime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="tech.qijin.satellites.order.db.model.OrderItem" useGeneratedKeys="true">
+    insert into order_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="skuName != null">
+        sku_name,
+      </if>
+      <if test="skuPic != null">
+        sku_pic,
+      </if>
+      <if test="skuDesc != null">
+        sku_desc,
+      </if>
+      <if test="skuOriginPrice != null">
+        sku_origin_price,
+      </if>
+      <if test="skuSalesPrice != null">
+        sku_sales_price,
+      </if>
+      <if test="skuOrderAmount != null">
+        sku_order_amount,
+      </if>
+      <if test="itemReducedAmount != null">
+        item_reduced_amount,
+      </if>
+      <if test="orderPriceType != null">
+        order_price_type,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="skuUnit != null">
+        sku_unit,
+      </if>
+      <if test="skuUnitDesc != null">
+        sku_unit_desc,
+      </if>
+      <if test="orderStock != null">
+        order_stock,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+      <if test="ctime != null">
+        ctime,
+      </if>
+      <if test="utime != null">
+        utime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="skuName != null">
+        #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuPic != null">
+        #{skuPic,jdbcType=VARCHAR},
+      </if>
+      <if test="skuDesc != null">
+        #{skuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="skuOriginPrice != null">
+        #{skuOriginPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuSalesPrice != null">
+        #{skuSalesPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuOrderAmount != null">
+        #{skuOrderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="itemReducedAmount != null">
+        #{itemReducedAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderPriceType != null">
+        #{orderPriceType,jdbcType=TINYINT},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="skuUnit != null">
+        #{skuUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="skuUnitDesc != null">
+        #{skuUnitDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStock != null">
+        #{orderStock,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=TINYINT},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null">
+        #{utime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="tech.qijin.satellites.order.db.model.OrderItemExample" resultType="java.lang.Long">
+    select count(*) from order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update order_item
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuId != null">
+        sku_id = #{record.skuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuName != null">
+        sku_name = #{record.skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuPic != null">
+        sku_pic = #{record.skuPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuDesc != null">
+        sku_desc = #{record.skuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuOriginPrice != null">
+        sku_origin_price = #{record.skuOriginPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.skuSalesPrice != null">
+        sku_sales_price = #{record.skuSalesPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.skuOrderAmount != null">
+        sku_order_amount = #{record.skuOrderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemReducedAmount != null">
+        item_reduced_amount = #{record.itemReducedAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderPriceType != null">
+        order_price_type = #{record.orderPriceType,jdbcType=TINYINT},
+      </if>
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.quantity != null">
+        quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuUnit != null">
+        sku_unit = #{record.skuUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuUnitDesc != null">
+        sku_unit_desc = #{record.skuUnitDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStock != null">
+        order_stock = #{record.orderStock,jdbcType=INTEGER},
+      </if>
+      <if test="record.valid != null">
+        valid = #{record.valid,jdbcType=TINYINT},
+      </if>
+      <if test="record.ctime != null">
+        ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.utime != null">
+        utime = #{record.utime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update order_item
+    set id = #{record.id,jdbcType=BIGINT},
+      order_id = #{record.orderId,jdbcType=BIGINT},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      sku_id = #{record.skuId,jdbcType=INTEGER},
+      sku_name = #{record.skuName,jdbcType=VARCHAR},
+      sku_pic = #{record.skuPic,jdbcType=VARCHAR},
+      sku_desc = #{record.skuDesc,jdbcType=VARCHAR},
+      sku_origin_price = #{record.skuOriginPrice,jdbcType=DECIMAL},
+      sku_sales_price = #{record.skuSalesPrice,jdbcType=DECIMAL},
+      sku_order_amount = #{record.skuOrderAmount,jdbcType=DECIMAL},
+      item_reduced_amount = #{record.itemReducedAmount,jdbcType=DECIMAL},
+      order_price_type = #{record.orderPriceType,jdbcType=TINYINT},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      quantity = #{record.quantity,jdbcType=INTEGER},
+      sku_unit = #{record.skuUnit,jdbcType=VARCHAR},
+      sku_unit_desc = #{record.skuUnitDesc,jdbcType=VARCHAR},
+      order_stock = #{record.orderStock,jdbcType=INTEGER},
+      valid = #{record.valid,jdbcType=TINYINT},
+      ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      utime = #{record.utime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="tech.qijin.satellites.order.db.model.OrderItem">
+    update order_item
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="skuName != null">
+        sku_name = #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuPic != null">
+        sku_pic = #{skuPic,jdbcType=VARCHAR},
+      </if>
+      <if test="skuDesc != null">
+        sku_desc = #{skuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="skuOriginPrice != null">
+        sku_origin_price = #{skuOriginPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuSalesPrice != null">
+        sku_sales_price = #{skuSalesPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuOrderAmount != null">
+        sku_order_amount = #{skuOrderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="itemReducedAmount != null">
+        item_reduced_amount = #{itemReducedAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderPriceType != null">
+        order_price_type = #{orderPriceType,jdbcType=TINYINT},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="skuUnit != null">
+        sku_unit = #{skuUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="skuUnitDesc != null">
+        sku_unit_desc = #{skuUnitDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStock != null">
+        order_stock = #{orderStock,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=TINYINT},
+      </if>
+      <if test="ctime != null">
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null">
+        utime = #{utime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="tech.qijin.satellites.order.db.model.OrderItem">
+    update order_item
+    set order_id = #{orderId,jdbcType=BIGINT},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      sku_id = #{skuId,jdbcType=INTEGER},
+      sku_name = #{skuName,jdbcType=VARCHAR},
+      sku_pic = #{skuPic,jdbcType=VARCHAR},
+      sku_desc = #{skuDesc,jdbcType=VARCHAR},
+      sku_origin_price = #{skuOriginPrice,jdbcType=DECIMAL},
+      sku_sales_price = #{skuSalesPrice,jdbcType=DECIMAL},
+      sku_order_amount = #{skuOrderAmount,jdbcType=DECIMAL},
+      item_reduced_amount = #{itemReducedAmount,jdbcType=DECIMAL},
+      order_price_type = #{orderPriceType,jdbcType=TINYINT},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      quantity = #{quantity,jdbcType=INTEGER},
+      sku_unit = #{skuUnit,jdbcType=VARCHAR},
+      sku_unit_desc = #{skuUnitDesc,jdbcType=VARCHAR},
+      order_stock = #{orderStock,jdbcType=INTEGER},
+      valid = #{valid,jdbcType=TINYINT},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      utime = #{utime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
