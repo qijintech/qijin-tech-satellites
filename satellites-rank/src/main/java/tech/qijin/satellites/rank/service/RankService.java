@@ -16,40 +16,23 @@ public interface RankService {
      *
      * <p>默认填充日榜、周榜、月榜和年榜</p>
      *
-     * @param field
+     * @param member
      * @param score
      */
-    void fire(String field, Long score);
+    void fire(String member, Long score);
 
-    void fire(String field, Long score, Set<Dimension> dimensions);
-
-    /**
-     * 日榜
-     *
-     * @return
-     */
-    List<RankingBo> dailyRank();
+    void fire(String member, Long score, Set<Dimension> dimensions);
 
     /**
-     * 周榜
+     * 排行榜信息
      *
+     * @param start
+     * @param offset
+     * @param dimension 选择排行榜的维度，即日榜、周榜、月榜
      * @return
      */
-    List<RankingBo> weeklyRank();
+    List<RankingBo> pageRank(Integer start, Integer offset, Dimension dimension);
 
-    /**
-     * 月榜
-     *
-     * @return
-     */
-    List<RankingBo> monthlyRank();
-
-    /**
-     * 年榜
-     *
-     * @return
-     */
-    List<RankingBo> yearlyRank();
 
     enum Dimension {
         DAILY,

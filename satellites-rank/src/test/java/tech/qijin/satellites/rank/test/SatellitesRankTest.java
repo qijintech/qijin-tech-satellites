@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author UnitTest
  */
 
-@SpringBootApplication(scanBasePackages = {"tech.qijin.satellites.comments"})
-@MapperScan("tech.qijin.satellites.comments.db.dao")
+@SpringBootApplication(scanBasePackages = {"tech.qijin.satellites.rank"})
+@MapperScan("tech.qijin.satellites.rank.db.dao")
 public class SatellitesRankTest {
 
     public static void main(String[] args) {

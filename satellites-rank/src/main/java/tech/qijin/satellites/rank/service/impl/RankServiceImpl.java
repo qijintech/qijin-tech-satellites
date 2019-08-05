@@ -1,23 +1,28 @@
 package tech.qijin.satellites.rank.service.impl;
 
+import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 import tech.qijin.satellites.rank.service.RankService;
 import tech.qijin.satellites.rank.service.bo.RankingBo;
 import tech.qijin.satellites.rank.service.helper.RankHelper;
+import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.redis.RedisUtil;
 import tech.qijin.util4j.timezone.TimezoneHandler;
 import tech.qijin.util4j.trace.util.ChannelUtil;
 import tech.qijin.util4j.utils.DateUtil;
-import tech.qijin.util4j.utils.TimezoneUtil;
+import tech.qijin.util4j.utils.MAssert;
+import tech.qijin.util4j.utils.NumberUtil;
 
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @author michealyang
@@ -28,56 +33,72 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RankServiceImpl implements RankService {
 
-    protected static final String MONTH_PATTERN = "yyyyMM";
-    protected static final String YEAR_PATTERN = "yyyy";
+    private static final String MONTH_PATTERN = "yyyyMM";
+    private static final String YEAR_PATTERN = "yyyy";
+    private static final Integer DEFAULT_OFFSET = 20;
+    private static final Integer MAX_OFFSET = 100;
 
-    @Autowired
-    private RankHelper commentHelper;
     @Autowired
     private RedisUtil redisUtil;
     @Autowired
     private TimezoneHandler timezoneHandler;
 
     @Override
-    public void fire(String field, Long score) {
-        DateTime dateTime = timezoneHandler.coordinate(DateUtil.now());
-        String dailyKey = getDailyKey(dateTime);
-        redisUtil.zAdd(dailyKey, field, score);
-        String weeklyKey = getWeeklyKey(dateTime);
-        redisUtil.zAdd(weeklyKey, field, score);
-        String monthlyKey = getMonthlyKey(dateTime);
-        redisUtil.zAdd(monthlyKey, field, score);
-        String yearlyKey = getYearlyKey(dateTime);
-        redisUtil.zAdd(yearlyKey, field, score);
+    public void fire(String member, Long score) {
+        fire(member, score, Sets.newHashSet(Dimension.values()));
     }
 
     @Override
-    public void fire(String field, Long score, Set<Dimension> dimensions) {
-
+    public void fire(String member, Long score, Set<Dimension> dimensions) {
+        DateTime dateTime = new DateTime();
+        if (dimensions.contains(Dimension.DAILY)) {
+            String dailyKey = getDailyKey(dateTime);
+            redisUtil.zIncrby(dailyKey, member, score);
+        }
+        if (dimensions.contains(Dimension.WEEKLY)) {
+            String weeklyKey = getWeeklyKey(dateTime);
+            redisUtil.zIncrby(weeklyKey, member, score);
+        }
+        if (dimensions.contains(Dimension.MONTHLY)) {
+            String monthlyKey = getMonthlyKey(dateTime);
+            redisUtil.zIncrby(monthlyKey, member, score);
+        }
+        if (dimensions.contains(Dimension.YEARLY)) {
+            String yearlyKey = getYearlyKey(dateTime);
+            redisUtil.zIncrby(yearlyKey, member, score);
+        }
     }
 
-    @Override
-    public List<RankingBo> dailyRank() {
-        return null;
-    }
+    public List<RankingBo> pageRank(Integer start, Integer offset, Dimension dimension) {
+        start = checkStart(start);
+        offset = checkOffset(offset);
+        DateTime dateTime = new DateTime();
+        String key;
+        switch (dimension) {
+            case DAILY:
+                key = getDailyKey(dateTime);
+            case WEEKLY:
+                key = getWeeklyKey(dateTime);
+            case MONTHLY:
+                key = getMonthlyKey(dateTime);
+            case YEARLY:
+                key = getYearlyKey(dateTime);
+            default:
+                key = getDailyKey(dateTime);
+        }
+        Set<ZSetOperations.TypedTuple<String>> sets = redisUtil.zRevRangeWithScore(key, start, start + offset);
+        if (CollectionUtils.isEmpty(sets)) {
+            return Collections.emptyList();
+        }
+        MAssert.isTrue((sets.size() & 0x01) == 0, ResEnum.BAD_GATEWAY);
 
-    @Override
-    public List<RankingBo> weeklyRank() {
-        return null;
-    }
-
-    @Override
-    public List<RankingBo> monthlyRank() {
-        return null;
-    }
-
-    @Override
-    public List<RankingBo> yearlyRank() {
-        return null;
+        return sets.stream()
+                .map(tuple -> new RankingBo(tuple.getValue(), tuple.getScore().longValue()))
+                .collect(Collectors.toList());
     }
 
     private String getDailyKey() {
-        DateTime now = timezoneHandler.coordinate(DateUtil.now());
+        DateTime now = new DateTime();
         String dateDay = getDateDay(now);
         return ChannelUtil.getChannel().name() + ".ranking.daily." + dateDay;
     }
@@ -135,5 +156,24 @@ public class RankServiceImpl implements RankService {
 
     public String getDateYear(DateTime dateTime) {
         return dateTime.toString(YEAR_PATTERN);
+    }
+
+    private Integer checkStart(Integer start) {
+        return start == null ? 0 : start;
+    }
+
+    private Integer checkOffset(Integer offset) {
+        if (NumberUtil.nullOrLeZero(offset)) {
+            return DEFAULT_OFFSET;
+        }
+        if (offset > MAX_OFFSET) {
+            return MAX_OFFSET;
+        }
+        return offset;
+    }
+
+    public static void main(String[] args) {
+        Double x = 234.234d;
+        System.out.print(x.longValue());
     }
 }
