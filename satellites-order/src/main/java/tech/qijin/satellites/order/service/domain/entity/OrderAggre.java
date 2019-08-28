@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @version 创建时间: 2019/7/25.
  */
-public class Order {
+public class OrderAggre {
 
     private Long id;
 
