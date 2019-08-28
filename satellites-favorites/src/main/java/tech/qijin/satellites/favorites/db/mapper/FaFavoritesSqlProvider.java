@@ -2,11 +2,13 @@ package tech.qijin.satellites.favorites.db.mapper;
 
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ibatis.jdbc.SQL;
+
 import tech.qijin.satellites.favorites.db.model.FaFavorites;
+import tech.qijin.satellites.favorites.db.model.FaFavoritesExample;
 import tech.qijin.satellites.favorites.db.model.FaFavoritesExample.Criteria;
 import tech.qijin.satellites.favorites.db.model.FaFavoritesExample.Criterion;
-import tech.qijin.satellites.favorites.db.model.FaFavoritesExample;
 
 public class FaFavoritesSqlProvider {
 

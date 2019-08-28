@@ -3,6 +3,7 @@ package tech.qijin.satellites.websocket.config;
 import org.springframework.beans.factory.serviceloader.ServiceListFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import tech.qijin.satellites.websocket.spi.WebSocketProvider;
 
 /**

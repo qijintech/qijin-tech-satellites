@@ -1,8 +1,8 @@
 package tech.qijin.satellites.item.server.vo;
 
-import lombok.Data;
-
 import java.math.BigDecimal;
+
+import lombok.Data;
 
 /**
  * @author michealyang

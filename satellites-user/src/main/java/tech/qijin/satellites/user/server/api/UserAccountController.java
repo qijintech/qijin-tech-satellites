@@ -1,11 +1,16 @@
 package tech.qijin.satellites.user.server.api;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import lombok.extern.slf4j.Slf4j;
 import tech.qijin.satellites.user.annotation.FreeAccess;
 import tech.qijin.satellites.user.server.vo.UserReqVo;
 import tech.qijin.satellites.user.server.vo.UserResVo;
@@ -17,9 +22,6 @@ import tech.qijin.util4j.utils.ValidationUtil;
 import tech.qijin.util4j.web.annotation.ChannelRequired;
 import tech.qijin.util4j.web.pojo.ResultVo;
 import tech.qijin.util4j.web.util.ServletUtil;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 /**
  * 用户操作相关接口

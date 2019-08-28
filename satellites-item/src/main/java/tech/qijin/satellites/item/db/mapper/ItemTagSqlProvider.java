@@ -2,11 +2,13 @@ package tech.qijin.satellites.item.db.mapper;
 
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ibatis.jdbc.SQL;
+
 import tech.qijin.satellites.item.db.model.ItemTag;
+import tech.qijin.satellites.item.db.model.ItemTagExample;
 import tech.qijin.satellites.item.db.model.ItemTagExample.Criteria;
 import tech.qijin.satellites.item.db.model.ItemTagExample.Criterion;
-import tech.qijin.satellites.item.db.model.ItemTagExample;
 
 public class ItemTagSqlProvider {
 

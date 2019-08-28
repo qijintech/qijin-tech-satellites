@@ -1,0 +1,27 @@
+CREATE TABLE `order_item` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `order_id` bigint(20) unsigned NOT NULL COMMENT '订单ID',
+  `order_no` varchar(60) NOT NULL COMMENT '订单号',
+  `sku_id` int(11) unsigned NOT NULL COMMENT '商品SKU Code',
+  `sku_name` varchar(400) NOT NULL COMMENT '商品名称',
+  `sku_pic` varchar(4096) DEFAULT NULL COMMENT '商品图片URLs',
+  `sku_desc` varchar(4096) DEFAULT NULL COMMENT '商品描述',
+  `sku_origin_price` decimal(12,2) DEFAULT '99999.00' COMMENT '商品（优惠前）原价',
+  `sku_sales_price` decimal(12,2) DEFAULT '99999.00' COMMENT '商品销售价（优惠前）',
+  `sku_order_amount` decimal(12,2) DEFAULT '99999.00' COMMENT '商品（优惠后）总金额',
+  `item_reduced_amount` decimal(12,2) DEFAULT '0.00' COMMENT '商品优惠总金额',
+  `order_price_type` tinyint(4) DEFAULT NULL COMMENT '价格类型：1-销售价',
+  `category_id` int(11) DEFAULT NULL COMMENT 'sku分类ID',
+  `quantity` int(11) NOT NULL COMMENT '数量',
+  `sku_unit` varchar(32) DEFAULT NULL COMMENT '售卖单位',
+  `sku_unit_desc` varchar(255) DEFAULT NULL COMMENT 'SKU售卖描述',
+  `order_stock` int(11) DEFAULT NULL COMMENT '（下单时）商品库存',
+  `valid` tinyint(4) DEFAULT '1' COMMENT '是否有效：1-有效，0-无效',
+  `ctime` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `utime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_order_id` (`order_id`),
+  KEY `idx_order_no` (`order_no`),
+  KEY `idx_ctime` (`ctime`)
+) ENGINE=InnoDB AUTO_INCREMENT=21050170 DEFAULT CHARSET=utf8mb4 COMMENT='订单商品表';
+

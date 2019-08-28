@@ -1,9 +1,9 @@
 package tech.qijin.satellites.comments.service;
 
+import java.util.List;
+
 import tech.qijin.satellites.comments.db.model.CmComment;
 import tech.qijin.satellites.comments.service.bo.CommentBo;
-
-import java.util.List;
 
 /**
  * @author michealyang

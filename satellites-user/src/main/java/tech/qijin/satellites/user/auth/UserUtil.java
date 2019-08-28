@@ -1,7 +1,6 @@
 package tech.qijin.satellites.user.auth;
 
 import tech.qijin.satellites.user.auth.pojo.User;
-import tech.qijin.util4j.trace.pojo.Channel;
 
 /**
  * @author michealyang

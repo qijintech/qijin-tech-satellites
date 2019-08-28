@@ -1,28 +1,40 @@
 package tech.qijin.satellites.websocket.server.handler;
 
+import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import io.netty.buffer.Unpooled;
-import io.netty.channel.*;
-import io.netty.handler.codec.http.*;
-import io.netty.handler.codec.http.websocketx.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelPipeline;
+import io.netty.handler.codec.http.DefaultFullHttpResponse;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.FullHttpResponse;
+import io.netty.handler.codec.http.HttpHeaders;
+import io.netty.handler.codec.http.HttpResponseStatus;
+import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
+import io.netty.handler.codec.http.websocketx.Utf8FrameValidator;
+import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import io.netty.handler.codec.http.websocketx.WebSocketHandshakeException;
+import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import tech.qijin.satellites.websocket.config.WebSocketProperties;
 import tech.qijin.satellites.websocket.server.WebSocketUserHolder;
 import tech.qijin.satellites.websocket.spi.WebSocketProvider;
 import tech.qijin.util4j.lang.constant.Const;
 import tech.qijin.util4j.trace.pojo.EnvEnum;
-import tech.qijin.util4j.trace.pojo.Trace;
 import tech.qijin.util4j.trace.util.EnvUtil;
 import tech.qijin.util4j.trace.util.TraceUtil;
 import tech.qijin.util4j.utils.LogFormat;
-
-import java.util.List;
-import java.util.UUID;
-
-import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 
 /**

@@ -1,13 +1,12 @@
 package tech.qijin.satellites.websocket.server;
 
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+
 import io.netty.channel.Channel;
-import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 import tech.qijin.util4j.utils.LogFormat;
-
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author michealyang

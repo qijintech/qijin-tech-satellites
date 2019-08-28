@@ -1,6 +1,7 @@
 package tech.qijin.satellites.comments.test;
 
-import com.github.pagehelper.PageHelper;
+import java.util.UUID;
+
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -10,15 +11,14 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import tech.qijin.usercenter.client.pojo.User;
-import tech.qijin.usercenter.client.util.UserUtil;
+
+import com.github.pagehelper.PageHelper;
+
 import tech.qijin.util4j.trace.pojo.Channel;
 import tech.qijin.util4j.trace.pojo.EnvEnum;
 import tech.qijin.util4j.trace.util.ChannelUtil;
 import tech.qijin.util4j.trace.util.EnvUtil;
 import tech.qijin.util4j.trace.util.TraceUtil;
-
-import java.util.UUID;
 
 /**
  * @author UnitTest
@@ -39,9 +39,5 @@ public class BaseTest {
         EnvUtil.setEnv(EnvEnum.TEST);
         ChannelUtil.setChannel(Channel.TEST);
         PageHelper.startPage(0, 50);
-        User user = new User();
-        user.setUserId(10086L);
-        user.setUserName("UnitTest");
-        UserUtil.setUser(user);
     }
 }

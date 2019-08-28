@@ -1,23 +1,24 @@
 package tech.qijin.satellites.user.auth.interceptor;
 
-import lombok.extern.slf4j.Slf4j;
+import java.lang.reflect.Method;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import lombok.extern.slf4j.Slf4j;
 import tech.qijin.satellites.user.annotation.FreeAccess;
 import tech.qijin.satellites.user.auth.UserUtil;
 import tech.qijin.satellites.user.auth.pojo.User;
 import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.redis.RedisUtil;
-import tech.qijin.util4j.utils.ConvertUtil;
 import tech.qijin.util4j.utils.MAssert;
 import tech.qijin.util4j.web.util.ServletUtil;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Method;
-import java.util.Optional;
 
 @Slf4j
 public class AuthInterceptor implements HandlerInterceptor {

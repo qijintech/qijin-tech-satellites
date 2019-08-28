@@ -1,9 +1,8 @@
 package tech.qijin.satellites.favorites.service;
 
+import java.util.List;
 
 import tech.qijin.satellites.favorites.service.bo.FavoritesBo;
-
-import java.util.List;
 
 /**
  * @author michealyang

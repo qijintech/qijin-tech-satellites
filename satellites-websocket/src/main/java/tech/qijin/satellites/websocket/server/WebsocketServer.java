@@ -1,17 +1,18 @@
 package tech.qijin.satellites.websocket.server;
 
+import org.springframework.stereotype.Component;
+
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.FixedRecvByteBufAllocator;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.concurrent.Future;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import tech.qijin.satellites.websocket.config.WebSocketProperties;
 import tech.qijin.util4j.utils.LogFormat;
-
-import javax.annotation.PostConstruct;
 
 /**
  * @author michealyang

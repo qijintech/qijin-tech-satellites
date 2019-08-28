@@ -1,10 +1,11 @@
 package tech.qijin.satellites.user.service;
 
-import tech.qijin.satellites.user.service.bo.UserBo;
+import java.util.Optional;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
-import java.util.Optional;
+
+import tech.qijin.satellites.user.service.bo.UserBo;
 
 /**
  * @author michealyang

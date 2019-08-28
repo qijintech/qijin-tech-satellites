@@ -1,8 +1,11 @@
 package tech.qijin.satellites.user.service.helper.impl;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import lombok.extern.slf4j.Slf4j;
 import tech.qijin.satellites.user.auth.UserUtil;
 import tech.qijin.satellites.user.db.dao.UserInfoDao;
 import tech.qijin.satellites.user.db.model.UserInfo;
@@ -12,8 +15,6 @@ import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.trace.util.ChannelUtil;
 import tech.qijin.util4j.utils.MAssert;
 import tech.qijin.util4j.utils.NumberUtil;
-
-import java.util.Optional;
 
 /**
  * @author michealyang

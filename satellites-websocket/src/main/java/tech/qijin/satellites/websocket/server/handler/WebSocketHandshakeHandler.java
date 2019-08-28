@@ -1,24 +1,34 @@
 package tech.qijin.satellites.websocket.server.handler;
 
-import io.netty.channel.*;
-import io.netty.handler.codec.http.*;
-import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
-import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
-import io.netty.handler.ssl.SslHandler;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import tech.qijin.satellites.websocket.server.WebSocketUserHolder;
-import tech.qijin.satellites.websocket.spi.WebSocketProvider;
-import tech.qijin.util4j.utils.LogFormat;
-
-import java.util.List;
-import java.util.Map;
-
 import static io.netty.handler.codec.http.HttpMethod.GET;
 import static io.netty.handler.codec.http.HttpResponseStatus.FORBIDDEN;
 import static io.netty.handler.codec.http.HttpResponseStatus.UNAUTHORIZED;
 import static io.netty.handler.codec.http.HttpUtil.isKeepAlive;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelPipeline;
+import io.netty.handler.codec.http.DefaultFullHttpResponse;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.HttpHeaderNames;
+import io.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.HttpResponse;
+import io.netty.handler.codec.http.QueryStringDecoder;
+import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
+import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
+import io.netty.handler.ssl.SslHandler;
+import lombok.extern.slf4j.Slf4j;
+import tech.qijin.satellites.websocket.server.WebSocketUserHolder;
+import tech.qijin.satellites.websocket.spi.WebSocketProvider;
+import tech.qijin.util4j.utils.LogFormat;
 
 /**
  * @author michealyang

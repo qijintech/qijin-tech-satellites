@@ -1,8 +1,8 @@
 package tech.qijin.satellites.item.service.helper;
 
-import tech.qijin.satellites.item.db.model.ItemTag;
-
 import java.util.List;
+
+import tech.qijin.satellites.item.db.model.ItemTag;
 
 /**
  * @author michealyang

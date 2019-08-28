@@ -1,15 +1,18 @@
 package tech.qijin.satellites.comments.db.dao;
 
-import tech.qijin.satellites.comments.db.mapper.CmCommentPicMapper;
-import tech.qijin.satellites.comments.db.mapper.CmCommentPicSqlProvider;
-import tech.qijin.satellites.comments.db.model.CmCommentPic;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.InsertProvider;
-import com.google.common.collect.Lists;
-import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Param;
+
+import com.google.common.collect.Lists;
+
+import tech.qijin.satellites.comments.db.mapper.CmCommentPicMapper;
+import tech.qijin.satellites.comments.db.mapper.CmCommentPicSqlProvider;
+import tech.qijin.satellites.comments.db.model.CmCommentPic;
 
 /**
  * @author: SYSTEM

@@ -1,6 +1,7 @@
 package tech.qijin.satellites.user.test;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.UUID;
+
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -10,13 +11,12 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+
 import tech.qijin.satellites.user.auth.UserUtil;
 import tech.qijin.satellites.user.auth.pojo.User;
 import tech.qijin.util4j.trace.pojo.Channel;
 import tech.qijin.util4j.trace.util.ChannelUtil;
 import tech.qijin.util4j.trace.util.TraceUtil;
-
-import java.util.UUID;
 
 /**
  * @author UnitTest

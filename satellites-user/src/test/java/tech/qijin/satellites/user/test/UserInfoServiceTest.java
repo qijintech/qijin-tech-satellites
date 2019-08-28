@@ -3,6 +3,7 @@ package tech.qijin.satellites.user.test;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import tech.qijin.satellites.user.auth.UserUtil;
 import tech.qijin.satellites.user.db.model.UserInfo;
 import tech.qijin.satellites.user.service.UserInfoService;

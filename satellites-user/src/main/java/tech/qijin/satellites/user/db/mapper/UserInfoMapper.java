@@ -1,6 +1,7 @@
 package tech.qijin.satellites.user.db.mapper;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -14,6 +15,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
+
 import tech.qijin.satellites.user.db.model.UserInfo;
 import tech.qijin.satellites.user.db.model.UserInfoExample;
 

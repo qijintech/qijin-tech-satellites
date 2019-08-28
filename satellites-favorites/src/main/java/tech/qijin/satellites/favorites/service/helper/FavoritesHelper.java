@@ -1,9 +1,9 @@
 package tech.qijin.satellites.favorites.service.helper;
 
-import tech.qijin.satellites.favorites.db.model.FaFavorites;
-
 import java.util.List;
 import java.util.Optional;
+
+import tech.qijin.satellites.favorites.db.model.FaFavorites;
 
 /**
  * @author michealyang

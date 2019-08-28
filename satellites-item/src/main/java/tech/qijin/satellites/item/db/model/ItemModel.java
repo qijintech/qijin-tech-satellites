@@ -2,6 +2,7 @@ package tech.qijin.satellites.item.db.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 import tech.qijin.util4j.trace.pojo.Channel;
 import tech.qijin.util4j.trace.pojo.EnvEnum;
 
