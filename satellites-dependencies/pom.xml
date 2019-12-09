@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>satellites-build</artifactId>
+        <groupId>tech.qijin.satellites</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>satellites-dependencies</artifactId>
+    <groupId>tech.qijin.satellites</groupId>
+    <packaging>pom</packaging>
+
+    <properties>
+        <satellites.version>1.0.0-SNAPSHOT</satellites.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <!--================下面是对 satellites 包的依赖配置=============-->
+            <dependency>
+                <groupId>tech.qijin.satellites</groupId>
+                <artifactId>satellites-uploader</artifactId>
+                <version>${satellites.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>tech.qijin.satellites</groupId>
+                <artifactId>satellites-item</artifactId>
+                <version>${satellites.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>tech.qijin.satellites</groupId>
+                <artifactId>satellites-comments</artifactId>
+                <version>${satellites.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>tech.qijin.satellites</groupId>
+                <artifactId>satellites-favorites</artifactId>
+                <version>${satellites.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>tech.qijin.satellites</groupId>
+                <artifactId>satellites-user</artifactId>
+                <version>${satellites.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
