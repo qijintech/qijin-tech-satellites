@@ -15,6 +15,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>satellites-dependencies</module>
 		<module>satellites-comments</module>
 		<module>satellites-favorites</module>
 		<module>satellites-user</module>
@@ -23,12 +24,14 @@
 		<module>satellites-websocket</module>
 		<module>satellites-rank</module>
 		<module>satellites-uploader</module>
-		<module>satellites-dependencies</module>
+		<module>satellites-im</module>
+		<module>satellites-gim</module>
   </modules>
 
 	<properties>
-		<util4j.project.version>1.0.0</util4j.project.version>
-		<sdk.project.version>1.0.0</sdk.project.version>
+		<util4j.version>1.0.0-SNAPSHOT</util4j.version>
+		<sdk.version>1.0.0-SNAPSHOT</sdk.version>
+		<cell.version>1.0.0-SNAPSHOT</cell.version>
 		<usercenter.client.version>1.0.0-SNAPSHOT</usercenter.client.version>
 	</properties>
 
@@ -45,6 +48,13 @@
 				<groupId>tech.qijin.sdk</groupId>
 				<artifactId>sdk-depdendencies</artifactId>
 				<version>${sdk.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>tech.qijin.cell</groupId>
+				<artifactId>cell-dependencies</artifactId>
+				<version>${cell.version}</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
@@ -131,23 +141,6 @@
 			<id>prod</id>
 			<properties>
 				<spring.profiles.active>prod</spring.profiles.active>
-			</properties>
-		</profile>
-		<profile>
-			<id>snapshot</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<util4j.version>${util4j.project.version}-SNAPSHOT</util4j.version>
-				<sdk.version>${sdk.project.version}-SNAPSHOT</sdk.version>
-			</properties>
-		</profile>
-		<profile>
-			<id>release</id>
-			<properties>
-				<util4j.version>${util4j.project.version}</util4j.version>
-				<sdk.version>${sdk.project.version}</sdk.version>
 			</properties>
 		</profile>
 	</profiles>
