@@ -13,7 +13,7 @@ import tech.qijin.cell.im.base.MsgType;
 @Data
 @ApiModel(description = "发送消息请求体")
 public class MessageReqVo {
-    @ApiModelProperty(value = "12345", notes = "会话id，数字类型")
+    @ApiModelProperty(value = "xxxx", notes = "会话id，字符串类型，方便扩展")
     private Long conversationId;
     @ApiModelProperty(value = "12345", notes = "对方uid，数字类型")
     private Long toUid;

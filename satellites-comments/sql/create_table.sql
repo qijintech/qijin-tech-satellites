@@ -4,7 +4,7 @@ CREATE TABLE `cm_comment` (
   `base_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '回复大楼基层id',
   `append_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '追加评论的id',
   `reply_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '被回复的评论id',
-  `content` varchar(255) NOT NULL DEFAULT '''''' COMMENT '评论内容',
+  `abstractContent` varchar(255) NOT NULL DEFAULT '''''' COMMENT '评论内容',
   `channel` tinyint(3) NOT NULL DEFAULT '0' COMMENT '渠道',
   `env` tinyint(3) NOT NULL DEFAULT '0' COMMENT '环境',
   `valid` tinyint(3) NOT NULL DEFAULT '1' COMMENT '是否有效',
