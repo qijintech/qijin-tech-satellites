@@ -2,6 +2,7 @@ package tech.qijin.satellites.user.server.api;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +16,12 @@ import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.utils.ConvertUtil;
 import tech.qijin.util4j.utils.ValidationUtil;
 import tech.qijin.util4j.web.annotation.ChannelRequired;
+import tech.qijin.util4j.web.interceptor.annotation.ChannelRequired;
 import tech.qijin.util4j.web.pojo.ResultVo;
 import tech.qijin.util4j.web.util.ServletUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 /**
@@ -35,12 +38,20 @@ import java.util.Optional;
  * @date 2019/1/16
  * 开始做眼保健操：←_← ↑_↑ →_→ ↓_↓
  **/
+@Validated
 @RestController
 @RequestMapping("/user/account")
 @Slf4j
 public class UserAccountController {
     @Autowired
     private UserAccountService userAccountService;
+
+    @FreeAccess
+    @ChannelRequired
+    @PostMapping("/login/mini")
+    public String loginMini(@NotNull String code) {
+        
+    }
 
     @FreeAccess
     @ChannelRequired

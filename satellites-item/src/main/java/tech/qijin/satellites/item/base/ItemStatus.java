@@ -7,7 +7,7 @@ import tech.qijin.util4j.lang.constant.EnumValue;
  * @date 2019/1/24
  * 开始做眼保健操：←_← ↑_↑ →_→ ↓_↓
  **/
-public enum ItemStatus implements EnumValue {
+public enum ItemStatus implements EnumValue<Integer> {
     NULL(0, "无效"),
     ON_SHELF(1, "上架"),
     OFF_SHELF(2, "下架");
@@ -21,7 +21,7 @@ public enum ItemStatus implements EnumValue {
     private String desc;
 
     @Override
-    public int value() {
+    public Integer value() {
         return 0;
     }
 

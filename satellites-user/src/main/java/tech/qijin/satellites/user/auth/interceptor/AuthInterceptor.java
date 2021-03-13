@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import tech.qijin.cell.user.service.CellUserTokenService;
 import tech.qijin.satellites.user.annotation.FreeAccess;
 import tech.qijin.satellites.user.auth.UserUtil;
 import tech.qijin.satellites.user.auth.pojo.User;
@@ -23,7 +24,7 @@ import java.util.Optional;
 public class AuthInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private RedisUtil redisUtil;
+    private CellUserTokenService cellUserTokenService;
 
     private static final String GROUP_ID = "tech.qijin";
 
@@ -49,8 +50,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         Optional<String> tokenOpt = ServletUtil.getHeader(request, "token");
         return tokenOpt.map(token -> {
-            User user = (User) redisUtil.getObject(token);
-            MAssert.isTrue(user != null, ResEnum.UNAUTHORIZED);
+            Long userId = cellUserTokenService.auth(token);
+            User user = new User();
+            user.setUserId(userId);
             UserUtil.setUser(user);
             return true;
         }).orElse(false);
