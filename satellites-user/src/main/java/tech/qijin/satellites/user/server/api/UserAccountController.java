@@ -15,7 +15,6 @@ import tech.qijin.satellites.user.service.bo.UserBo;
 import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.utils.ConvertUtil;
 import tech.qijin.util4j.utils.ValidationUtil;
-import tech.qijin.util4j.web.annotation.ChannelRequired;
 import tech.qijin.util4j.web.interceptor.annotation.ChannelRequired;
 import tech.qijin.util4j.web.pojo.ResultVo;
 import tech.qijin.util4j.web.util.ServletUtil;
@@ -40,43 +39,37 @@ import java.util.Optional;
  **/
 @Validated
 @RestController
-@RequestMapping("/user/account")
+@RequestMapping("/api/v1/user/account")
 @Slf4j
 public class UserAccountController {
     @Autowired
     private UserAccountService userAccountService;
 
-    @FreeAccess
-    @ChannelRequired
     @PostMapping("/login/mini")
     public String loginMini(@NotNull String code) {
-        
+        return "";
     }
 
     @FreeAccess
-    @ChannelRequired
     @PostMapping("/signup")
     public ResultVo signUp(@RequestBody UserReqVo userReqVo) {
         ValidationUtil.validate(userReqVo);
-        Optional<String> tokenOpt = userAccountService.signUp(userReqVo.getUserName(),
+        String token = userAccountService.signUp(userReqVo.getUsername(),
                 userReqVo.getPassword(),
                 userReqVo.getSignIn());
-        return tokenOpt.map(token -> ResultVo.instance().data(token))
-                .orElse(ResultVo.instance().success());
+        return ResultVo.instance().data(token);
     }
     
-    @FreeAccess
-    @ChannelRequired
     @PostMapping("/signin")
     public UserResVo signIn(@RequestBody UserReqVo userReqVo) {
         ValidationUtil.validate(userReqVo);
-        UserBo userBo = userAccountService.signIn(userReqVo.getUserName(), userReqVo.getPassword());
-        UserResVo userResVo = ConvertUtil.convert(userBo.getUserInfo(), UserResVo.class);
+        UserBo userBo = userAccountService.signIn(userReqVo.getUsername(), userReqVo.getPassword());
+        UserResVo userResVo = null;
+//        ConvertUtil.convert(userBo.getUserInfo(), UserResVo.class);
         userResVo.setToken(userBo.getToken());
         return userResVo;
     }
 
-    @ChannelRequired
     @PostMapping("/signout")
     public ResultVo signOut(HttpServletRequest request) {
         Optional<String> token = ServletUtil.getHeader(request, "token");

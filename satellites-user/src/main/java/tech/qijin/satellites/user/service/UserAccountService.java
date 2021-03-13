@@ -20,7 +20,7 @@ public interface UserAccountService {
      * @param signIn   注册成功后是否直接登录，true: 登录; false: 不登录
      * @return
      */
-    Optional<String> signUp(@NotNull String userName,
+    String signUp(@NotNull String userName,
                             @NotNull String password,
                             @Nullable Boolean signIn);
 

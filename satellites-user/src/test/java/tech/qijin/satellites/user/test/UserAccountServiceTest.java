@@ -6,7 +6,6 @@ import tech.qijin.satellites.user.auth.UserUtil;
 import tech.qijin.satellites.user.service.UserAccountService;
 import tech.qijin.satellites.user.service.bo.UserBo;
 import tech.qijin.satellites.user.service.helper.UserAccountHelper;
-import tech.qijin.satellites.user.service.helper.UserInfoHelper;
 
 /**
  * @author michealyang
@@ -18,8 +17,8 @@ public class UserAccountServiceTest extends BaseTest{
     private UserAccountService userAccountService;
     @Autowired
     private UserAccountHelper userAccountHelper;
-    @Autowired
-    private UserInfoHelper userInfoHelper;
+//    @Autowired
+//    private UserInfoHelper userInfoHelper;
 
 
     /**

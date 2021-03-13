@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class UserReqVo {
     @NotNull(message = "用户名不能为空")
-    private String userName;
+    private String username;
     @NotNull(message = "密码不能为空")
     private String password;
     @Nullable
