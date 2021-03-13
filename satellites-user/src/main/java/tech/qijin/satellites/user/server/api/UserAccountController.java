@@ -3,19 +3,14 @@ package tech.qijin.satellites.user.server.api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.qijin.satellites.user.annotation.FreeAccess;
-import tech.qijin.satellites.user.server.vo.UserReqVo;
+import tech.qijin.satellites.user.server.vo.UserAccountReqVo;
 import tech.qijin.satellites.user.server.vo.UserResVo;
 import tech.qijin.satellites.user.service.UserAccountService;
 import tech.qijin.satellites.user.service.bo.UserBo;
 import tech.qijin.util4j.lang.constant.ResEnum;
-import tech.qijin.util4j.utils.ConvertUtil;
 import tech.qijin.util4j.utils.ValidationUtil;
-import tech.qijin.util4j.web.interceptor.annotation.ChannelRequired;
 import tech.qijin.util4j.web.pojo.ResultVo;
 import tech.qijin.util4j.web.util.ServletUtil;
 
@@ -51,26 +46,26 @@ public class UserAccountController {
     }
 
     @FreeAccess
-    @PostMapping("/signup")
-    public ResultVo signUp(@RequestBody UserReqVo userReqVo) {
-        ValidationUtil.validate(userReqVo);
-        String token = userAccountService.signUp(userReqVo.getUsername(),
-                userReqVo.getPassword(),
-                userReqVo.getSignIn());
+    @PostMapping("/signUp")
+    public ResultVo signUp(@RequestBody UserAccountReqVo userAccountReqVo) {
+        ValidationUtil.validate(userAccountReqVo);
+        String token = userAccountService.signUp(userAccountReqVo.getUsername(),
+                userAccountReqVo.getPassword(),
+                userAccountReqVo.getSignIn());
         return ResultVo.instance().data(token);
     }
     
-    @PostMapping("/signin")
-    public UserResVo signIn(@RequestBody UserReqVo userReqVo) {
-        ValidationUtil.validate(userReqVo);
-        UserBo userBo = userAccountService.signIn(userReqVo.getUsername(), userReqVo.getPassword());
+    @PostMapping("/signIn")
+    public UserResVo signIn(@RequestBody UserAccountReqVo userAccountReqVo) {
+        ValidationUtil.validate(userAccountReqVo);
+        UserBo userBo = userAccountService.signIn(userAccountReqVo.getUsername(), userAccountReqVo.getPassword());
         UserResVo userResVo = null;
 //        ConvertUtil.convert(userBo.getUserInfo(), UserResVo.class);
         userResVo.setToken(userBo.getToken());
         return userResVo;
     }
 
-    @PostMapping("/signout")
+    @PostMapping("/signOut")
     public ResultVo signOut(HttpServletRequest request) {
         Optional<String> token = ServletUtil.getHeader(request, "token");
         if (userAccountService.signOut(token.get())) {

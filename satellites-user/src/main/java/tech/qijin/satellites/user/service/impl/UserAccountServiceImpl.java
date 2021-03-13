@@ -5,12 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tech.qijin.cell.user.base.EmailRegisterVo;
-import tech.qijin.cell.user.base.RegisterType;
+import tech.qijin.cell.user.base.AccountType;
 import tech.qijin.cell.user.base.UserSessionBo;
 import tech.qijin.cell.user.service.CellUserAccountService;
 import tech.qijin.satellites.user.service.UserAccountService;
 import tech.qijin.satellites.user.service.bo.UserBo;
-import tech.qijin.satellites.user.service.helper.UserAccountHelper;
 import tech.qijin.util4j.aop.annotation.Log;
 import tech.qijin.util4j.aop.annotation.Timed;
 
@@ -30,11 +29,11 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Log
     @Transactional
     @Override
-    public String signUp(String userName, String password, Boolean signIn) {
+    public String signUp(String username, String password, Boolean signIn) {
         EmailRegisterVo emailRegisterVo = new EmailRegisterVo();
-        emailRegisterVo.setEmail(userName);
+        emailRegisterVo.setEmail(username);
         emailRegisterVo.setPassword(password);
-        UserSessionBo userSessionBo = cellUserAccountService.register(RegisterType.EMAIL, emailRegisterVo, signIn, 3);
+        UserSessionBo userSessionBo = cellUserAccountService.register(AccountType.EMAIL, emailRegisterVo, signIn, 3);
         if (signIn) {
             return userSessionBo.getUserToken().getToken();
         }
@@ -44,7 +43,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Timed
     @Log
     @Override
-    public UserBo signIn(String userName, String password) {
+    public UserBo signIn(String usename, String password) {
         return null;
     }
 
