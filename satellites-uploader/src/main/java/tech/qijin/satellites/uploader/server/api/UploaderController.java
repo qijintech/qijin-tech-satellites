@@ -1,6 +1,5 @@
 package tech.qijin.satellites.uploader.server.api;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -8,10 +7,7 @@ import tech.qijin.satellites.uploader.server.vo.UploadVo;
 import tech.qijin.satellites.uploader.service.UploadService;
 import tech.qijin.satellites.uploader.service.bo.FileType;
 import tech.qijin.satellites.uploader.service.bo.UploadBo;
-import tech.qijin.sdk.tencent.cloud.TxCosService;
-import tech.qijin.sdk.tencent.cloud.pojo.CosUploadVo;
 import tech.qijin.util4j.utils.ConvertUtil;
-import tech.qijin.util4j.utils.FileUtil;
 
 import java.io.File;
 import java.io.IOException;

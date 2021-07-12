@@ -2,6 +2,7 @@ package tech.qijin.satellites.uploader.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import tech.qijin.util4j.web.config.AutoConfiguration;
 
 /**
  * @author michealyang
@@ -10,5 +11,9 @@ import org.springframework.context.annotation.Configuration;
  **/
 @Configuration
 @ComponentScan(basePackages = "tech.qijin.satellites.uploader")
-public class SatellitesUploaderAutoConfiguration {
+public class SatellitesUploaderAutoConfiguration extends AutoConfiguration {
+    @Override
+    public String module() {
+        return "SatellitesUploaderAutoConfiguration";
+    }
 }

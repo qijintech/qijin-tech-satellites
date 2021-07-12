@@ -1,11 +1,8 @@
 package tech.qijin.satellites.user.test;
 
-import org.junit.Assert;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import tech.qijin.satellites.user.auth.UserUtil;
 //import tech.qijin.satellites.user.db.model.UserInfo;
-import tech.qijin.satellites.user.service.UserInfoService;
+import tech.qijin.satellites.user.service.UserProfileService;
 import tech.qijin.satellites.user.service.helper.UserAccountHelper;
 
 /**
@@ -13,9 +10,9 @@ import tech.qijin.satellites.user.service.helper.UserAccountHelper;
  * @date 2019/1/22
  * 开始做眼保健操：←_← ↑_↑ →_→ ↓_↓
  **/
-public class UserInfoServiceTest extends BaseTest{
+public class UserProfileBoServiceTest extends BaseTest{
     @Autowired
-    private UserInfoService userInfoService;
+    private UserProfileService userProfileService;
     @Autowired
     private UserAccountHelper userAccountHelper;
 //    @Autowired

@@ -7,11 +7,16 @@ import org.springframework.transaction.annotation.Transactional;
 import tech.qijin.cell.user.base.EmailRegisterVo;
 import tech.qijin.cell.user.base.AccountType;
 import tech.qijin.cell.user.base.UserSessionBo;
+import tech.qijin.cell.user.base.WechatRegisterVo;
 import tech.qijin.cell.user.service.CellUserAccountService;
 import tech.qijin.satellites.user.service.UserAccountService;
 import tech.qijin.satellites.user.service.bo.UserBo;
 import tech.qijin.util4j.aop.annotation.Log;
 import tech.qijin.util4j.aop.annotation.Timed;
+import tech.qijin.util4j.lang.constant.ResEnum;
+import tech.qijin.util4j.utils.MAssert;
+
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -45,6 +50,18 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public UserBo signIn(String usename, String password) {
         return null;
+    }
+
+    @Override
+    public UserBo signInForMini(String code) {
+        WechatRegisterVo wechatRegisterVo = new WechatRegisterVo(code);
+        UserSessionBo userSessionBo = cellUserAccountService.login(AccountType.MINI_WECHAT,
+                wechatRegisterVo, 0);
+        MAssert.notNull(userSessionBo, ResEnum.UNAUTHORIZED);
+        return UserBo.builder()
+                .token(userSessionBo.getUserToken().getToken())
+                .loginStatus(userSessionBo.getLoginStatus())
+                .build();
     }
 
     @Timed

@@ -35,6 +35,13 @@ public interface UserAccountService {
                   @NotNull String password);
 
     /**
+     * 微信小程序登录
+     * @param code
+     * @return
+     */
+    UserBo signInForMini(@NotNull String code);
+
+    /**
      * 退出
      */
     boolean signOut(@NotNull String token);

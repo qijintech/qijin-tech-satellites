@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import tech.qijin.satellites.user.auth.UserInterceptorConfiguration;
+import tech.qijin.util4j.web.config.AutoConfiguration;
 
 import javax.annotation.PostConstruct;
 
@@ -18,9 +19,9 @@ import javax.annotation.PostConstruct;
 @Configuration
 @Import({UserInterceptorConfiguration.class})
 @ComponentScan(basePackages = "tech.qijin.satellites.user")
-public class SatellitesUserAutoConfiguration {
-    @PostConstruct
-    public void init() {
-        log.info("======= loading Satellites User =======");
+public class SatellitesUserAutoConfiguration extends AutoConfiguration {
+    @Override
+    public String module() {
+        return SatellitesUserAutoConfiguration.class.getSimpleName();
     }
 }

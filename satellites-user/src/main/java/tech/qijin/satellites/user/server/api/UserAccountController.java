@@ -6,10 +6,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.qijin.satellites.user.annotation.FreeAccess;
 import tech.qijin.satellites.user.server.vo.UserAccountReqVo;
+import tech.qijin.satellites.user.server.vo.UserLoginReqVo;
+import tech.qijin.satellites.user.server.vo.UserLoginResVo;
 import tech.qijin.satellites.user.server.vo.UserResVo;
 import tech.qijin.satellites.user.service.UserAccountService;
 import tech.qijin.satellites.user.service.bo.UserBo;
 import tech.qijin.util4j.lang.constant.ResEnum;
+import tech.qijin.util4j.utils.MAssert;
 import tech.qijin.util4j.utils.ValidationUtil;
 import tech.qijin.util4j.web.pojo.ResultVo;
 import tech.qijin.util4j.web.util.ServletUtil;
@@ -40,9 +43,15 @@ public class UserAccountController {
     @Autowired
     private UserAccountService userAccountService;
 
+    @FreeAccess
     @PostMapping("/login/mini")
-    public String loginMini(@NotNull String code) {
-        return "";
+    public UserLoginResVo loginMini(@RequestBody @NotNull UserLoginReqVo loginReqVo) {
+        MAssert.notBlank(loginReqVo.getCode(), ResEnum.INVALID_PARAM);
+        UserBo userBo = userAccountService.signInForMini(loginReqVo.getCode());
+        return UserLoginResVo.builder()
+                .token(userBo.getToken())
+                .loginStatus(userBo.getLoginStatus())
+                .build();
     }
 
     @FreeAccess
