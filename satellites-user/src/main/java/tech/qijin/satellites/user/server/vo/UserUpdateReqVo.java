@@ -1,6 +1,8 @@
 package tech.qijin.satellites.user.server.vo;
 
 import lombok.Data;
+import tech.qijin.cell.user.base.Gender;
+import tech.qijin.cell.user.base.MaritalStatus;
 
 import javax.annotation.Nullable;
 
@@ -10,21 +12,25 @@ import javax.annotation.Nullable;
  * 开始做眼保健操：←_← ↑_↑ →_→ ↓_↓
  **/
 @Data
-public class UserInfoReqVo {
+public class UserUpdateReqVo {
     @Nullable
-    private String nickname;
+    private String name;
     @Nullable
     private String avatar;
     @Nullable
-    private Byte sex;
+    private Gender gender;
     @Nullable
     private String email;
     @Nullable
-    private String iphone;
-    @Nullable
-    private String address;
+    private String mobile;
     @Nullable
     private String birthday;
     @Nullable
     private String slogan;
+    private String bornCity;
+    private String liveCity;
+    // 身高
+    private Integer height;
+    // 婚姻状况
+    private MaritalStatus maritalStatus;
 }

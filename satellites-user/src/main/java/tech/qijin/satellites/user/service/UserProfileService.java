@@ -1,5 +1,6 @@
 package tech.qijin.satellites.user.service;
 
+import tech.qijin.cell.user.db.model.UserProfile;
 import tech.qijin.satellites.user.service.bo.UserBo;
 import tech.qijin.satellites.user.service.bo.UserProfileBo;
 
@@ -14,9 +15,9 @@ public interface UserProfileService {
     /**
      * 更新用户信息
      *
-     * @param userInfo
+     * @param profile
      */
-//    boolean updateInfoByUserId(UserInfo userInfo);
+    boolean update(UserProfile profile);
 
     /**
      * 获取用户信息

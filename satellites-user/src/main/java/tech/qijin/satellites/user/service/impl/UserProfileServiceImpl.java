@@ -41,6 +41,13 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
+    public boolean update(UserProfile profile) {
+        Long userId = UserUtil.getUserId();
+        profile.setUserId(userId);
+        return userProfileService.updateProfile(profile);
+    }
+
+    @Override
     public void updateForMini(UserProfileBo userProfileBo) {
         Long userId = UserUtil.getUserId();
         UserProfile userProfile = ConvertUtil.convert(userProfileBo, UserProfile.class);

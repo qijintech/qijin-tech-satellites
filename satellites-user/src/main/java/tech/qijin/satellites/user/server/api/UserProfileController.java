@@ -3,7 +3,8 @@ package tech.qijin.satellites.user.server.api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tech.qijin.satellites.user.server.vo.UserInfoReqVo;
+import tech.qijin.cell.user.db.model.UserProfile;
+import tech.qijin.satellites.user.server.vo.UserUpdateReqVo;
 import tech.qijin.satellites.user.server.vo.UserInfoResVo;
 import tech.qijin.satellites.user.server.vo.UserProfileReqVo;
 import tech.qijin.satellites.user.service.UserProfileService;
@@ -34,15 +35,10 @@ public class UserProfileController {
     }
 
     @PostMapping("/update")
-    public ResultVo updateInfo(@RequestBody UserInfoReqVo userInfoReqVo) {
-        ValidationUtil.validate(userInfoReqVo);
-//        UserInfo userInfo = ConvertUtil.convert(userInfoReqVo, UserInfo.class);
-//        if (userInfoService.updateInfoByUserId(userInfo)) {
-//            return ResultVo.instance().success();
-//        } else {
-//            return ResultVo.instance().fail(ResEnum.BAD_REQUEST);
-//        }
-        return null;
+    public Boolean updateInfo(@RequestBody UserUpdateReqVo userUpdateReqVo) {
+        ValidationUtil.validate(userUpdateReqVo);
+        UserProfile profile = ConvertUtil.convert(userUpdateReqVo, UserProfile.class);
+        return userProfileService.update(profile);
     }
 
     @GetMapping("/detail")
