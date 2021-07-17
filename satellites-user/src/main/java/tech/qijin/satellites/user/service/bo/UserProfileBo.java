@@ -3,6 +3,7 @@ package tech.qijin.satellites.user.service.bo;
 import lombok.Data;
 
 import javax.annotation.Nullable;
+import java.util.Date;
 
 /**
  * @author michealyang
@@ -24,7 +25,7 @@ public class UserProfileBo {
     @Nullable
     private String address;
     @Nullable
-    private String birthday;
+    private Date birthday;
     @Nullable
     private String slogan;
 }

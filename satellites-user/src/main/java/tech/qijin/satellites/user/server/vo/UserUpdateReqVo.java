@@ -5,6 +5,7 @@ import tech.qijin.cell.user.base.Gender;
 import tech.qijin.cell.user.base.MaritalStatus;
 
 import javax.annotation.Nullable;
+import java.util.Date;
 
 /**
  * @author michealyang
@@ -24,13 +25,23 @@ public class UserUpdateReqVo {
     @Nullable
     private String mobile;
     @Nullable
-    private String birthday;
+    private String edu;
+    @Nullable
+    private String eduDegree;
+    @Nullable
+    private Date birthday;
     @Nullable
     private String slogan;
+    @Nullable
     private String bornCity;
+    @Nullable
     private String liveCity;
+    @Nullable
+    private String job;
     // 身高
+    @Nullable
     private Integer height;
     // 婚姻状况
+    @Nullable
     private MaritalStatus maritalStatus;
 }
