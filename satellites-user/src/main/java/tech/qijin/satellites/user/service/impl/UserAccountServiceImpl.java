@@ -57,7 +57,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         WechatRegisterVo wechatRegisterVo = new WechatRegisterVo(code);
         UserSessionBo userSessionBo = cellUserAccountService.login(AccountType.MINI_WECHAT,
                 wechatRegisterVo, 0);
-        MAssert.notNull(userSessionBo, ResEnum.UNAUTHORIZED);
+        MAssert.notNull(userSessionBo, ResEnum.BAD_GATEWAY);
         return UserBo.builder()
                 .token(userSessionBo.getUserToken().getToken())
                 .loginStatus(userSessionBo.getLoginStatus())
