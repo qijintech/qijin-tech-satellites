@@ -19,9 +19,9 @@ import java.util.Observer;
 @Slf4j
 @Service
 public class UserObserverServiceImpl implements UserObserverService {
-    private Observable profileObservable = new Observable();
-    private Observable imageObservable = new Observable();
-    private Observable profileAndImageObservable = new Observable();
+    private MyObservable profileObservable = new MyObservable<UserProfile>();
+    private MyObservable imageObservable = new MyObservable<List<UserImage>>();
+    private MyObservable profileAndImageObservable = new MyObservable<UserProfileAndImageBo>();
     @Autowired
     private UserProfileService userProfileService;
     @Autowired
@@ -49,14 +49,14 @@ public class UserObserverServiceImpl implements UserObserverService {
     @Override
     public void profileNotify(long userId) {
         UserProfile profile = cellUserProfileService.getProfile(userId);
-        profileObservable.notifyObservers(profile);
+        profileObservable.notifyChange(profile);
         profileAndImageNotify(userId, profile);
     }
 
     @Override
     public void imageNotify(long userId) {
         List<UserImage> images = cellUserImageService.listUserImage(userId);
-        imageObservable.notifyObservers(images);
+        imageObservable.notifyChange(images);
         profileAndImageNotify(userId, images);
     }
 
@@ -64,7 +64,7 @@ public class UserObserverServiceImpl implements UserObserverService {
     public void profileAndImageNotify(long userId) {
         UserProfile profile = cellUserProfileService.getProfile(userId);
         List<UserImage> images = cellUserImageService.listUserImage(userId);
-        profileAndImageObservable.notifyObservers(UserProfileAndImageBo.builder()
+        profileAndImageObservable.notifyChange(UserProfileAndImageBo.builder()
                 .profile(profile)
                 .images(images)
                 .build());
@@ -73,7 +73,7 @@ public class UserObserverServiceImpl implements UserObserverService {
 
     private void profileAndImageNotify(long userId, List<UserImage> images) {
         UserProfile profile = cellUserProfileService.getProfile(userId);
-        profileAndImageObservable.notifyObservers(UserProfileAndImageBo.builder()
+        profileAndImageObservable.notifyChange(UserProfileAndImageBo.builder()
                 .profile(profile)
                 .images(images)
                 .build());
@@ -81,9 +81,16 @@ public class UserObserverServiceImpl implements UserObserverService {
 
     private void profileAndImageNotify(long userId, UserProfile profile) {
         List<UserImage> images = cellUserImageService.listUserImage(userId);
-        profileAndImageObservable.notifyObservers(UserProfileAndImageBo.builder()
+        profileAndImageObservable.notifyChange(UserProfileAndImageBo.builder()
                 .profile(profile)
                 .images(images)
                 .build());
+    }
+
+    public class MyObservable<T> extends Observable{
+        public void notifyChange(T data) {
+            setChanged();
+            notifyObservers(data);
+        }
     }
 }
