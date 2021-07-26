@@ -1,5 +1,6 @@
 package tech.qijin.satellites.user.service.impl;
 
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,12 +8,16 @@ import tech.qijin.cell.user.base.Gender;
 import tech.qijin.cell.user.db.model.UserProfile;
 import tech.qijin.cell.user.service.CellUserProfileService;
 import tech.qijin.satellites.user.auth.UserUtil;
+import tech.qijin.satellites.user.service.UserObserverService;
 import tech.qijin.satellites.user.service.UserProfileService;
 import tech.qijin.satellites.user.service.bo.UserBo;
 import tech.qijin.satellites.user.service.bo.UserProfileBo;
 import tech.qijin.util4j.aop.annotation.Timed;
 import tech.qijin.util4j.utils.ConvertUtil;
 
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Optional;
 
 /**
@@ -26,6 +31,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Autowired
     private CellUserProfileService userProfileService;
+    @Autowired
+    private UserObserverService userObserverService;
 
     @Timed
     @Override
@@ -44,7 +51,9 @@ public class UserProfileServiceImpl implements UserProfileService {
     public boolean update(UserProfile profile) {
         Long userId = UserUtil.getUserId();
         profile.setUserId(userId);
-        return userProfileService.updateProfile(profile);
+        boolean res = userProfileService.updateProfile(profile);
+        userObserverService.profileNotify(userId);
+        return res;
     }
 
     @Override
