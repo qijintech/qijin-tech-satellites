@@ -25,8 +25,8 @@ public class UploadServiceImpl implements UploadService {
     @Override
     public UploadBo upload(FileType fileType, MultipartFile file) throws IOException {
         String fileName = file.getOriginalFilename();
-        String prefixName = FileUtil.prefix(fileName);
-        String suffixName = FileUtil.suffix(fileName);
+//        String prefixName = FileUtil.prefix(fileName);
+//        String suffixName = FileUtil.suffix(fileName);
         File newFile = new File(fileName);
         FileUtils.copyInputStreamToFile(file.getInputStream(), newFile);
         COSScene cosScene = null;
