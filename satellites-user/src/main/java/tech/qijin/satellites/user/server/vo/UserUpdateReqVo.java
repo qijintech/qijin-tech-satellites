@@ -40,7 +40,7 @@ public class UserUpdateReqVo {
     private String job;
     // 身高
     @Nullable
-    private Integer height;
+    private String height;
     // 婚姻状况
     @Nullable
     private MaritalStatus maritalStatus;

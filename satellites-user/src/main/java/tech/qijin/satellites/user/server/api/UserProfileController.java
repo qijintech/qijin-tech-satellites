@@ -1,6 +1,7 @@
 package tech.qijin.satellites.user.server.api;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.qijin.cell.user.db.model.UserProfile;
@@ -9,7 +10,9 @@ import tech.qijin.satellites.user.server.vo.UserInfoResVo;
 import tech.qijin.satellites.user.server.vo.UserProfileReqVo;
 import tech.qijin.satellites.user.service.UserProfileService;
 import tech.qijin.satellites.user.service.bo.UserProfileBo;
+import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.utils.ConvertUtil;
+import tech.qijin.util4j.utils.MAssert;
 import tech.qijin.util4j.utils.ValidationUtil;
 import tech.qijin.util4j.web.pojo.ResultVo;
 
@@ -37,6 +40,7 @@ public class UserProfileController {
     @PostMapping("/update")
     public Boolean updateInfo(@RequestBody UserUpdateReqVo userUpdateReqVo) {
         ValidationUtil.validate(userUpdateReqVo);
+        checkProfileInfo(userUpdateReqVo);
         UserProfile profile = ConvertUtil.convert(userUpdateReqVo, UserProfile.class);
         return userProfileService.update(profile);
     }
@@ -48,5 +52,11 @@ public class UserProfileController {
 //                userBo -> ConvertUtil.convert(userBoOpt.get().getUserInfo(), UserInfoResVo.class)
 //        ).orElse(new UserInfoResVo());
         return null;
+    }
+
+    private void checkProfileInfo(UserUpdateReqVo userUpdateReqVo) {
+        if (StringUtils.isNotBlank(userUpdateReqVo.getName())) {
+            MAssert.isTrue(userUpdateReqVo.getName().length() < 10, ResEnum.INVALID_PARAM.code, "姓名长度不能超过10个字符");
+        }
     }
 }
