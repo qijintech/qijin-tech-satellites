@@ -6,22 +6,26 @@ import org.springframework.stereotype.Service;
 import tech.qijin.cell.user.db.model.UserImage;
 import tech.qijin.cell.user.service.CellUserImageService;
 import tech.qijin.satellites.user.service.UserImageService;
-import tech.qijin.satellites.user.service.UserObserverService;
-
-import java.util.Observable;
+import tech.qijin.satellites.user.service.observer.ProfileObservable;
+import tech.qijin.satellites.user.service.observer.event.ProfileEvent;
+import tech.qijin.satellites.user.service.observer.event.ProfileEventType;
 
 @Slf4j
 @Service
 public class UserImageServiceImpl implements UserImageService {
     @Autowired
-    private UserObserverService userObserverService;
+    private ProfileObservable profileObservable;
     @Autowired
     private CellUserImageService cellUserImageService;
 
     @Override
     public UserImage addImage(Long userId, String url) {
         UserImage userImage = cellUserImageService.addImage(userId, url);
-        userObserverService.imageNotify(userId);
+        profileObservable.notifyEvent(ProfileEvent.builder()
+                .eventType(ProfileEventType.IMAGE)
+                .images(cellUserImageService.listUserImage(userId))
+                .userId(userId)
+                .build());
         return userImage;
     }
 
@@ -33,7 +37,11 @@ public class UserImageServiceImpl implements UserImageService {
     @Override
     public boolean deleteImage(Long userId, Long id) {
         boolean res = cellUserImageService.deleteImage(userId, id);
-        userObserverService.imageNotify(userId);
+        profileObservable.notifyEvent(ProfileEvent.builder()
+                .eventType(ProfileEventType.IMAGE)
+                .images(cellUserImageService.listUserImage(userId))
+                .userId(userId)
+                .build());
         return res;
     }
 }
