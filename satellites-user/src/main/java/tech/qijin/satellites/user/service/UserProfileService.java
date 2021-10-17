@@ -24,7 +24,7 @@ public interface UserProfileService {
      *
      * @return
      */
-    Optional<UserBo> getUserProfile();
+    UserProfile getUserProfile();
 
     void updateForMini(UserProfileBo userProfileBo);
 }
