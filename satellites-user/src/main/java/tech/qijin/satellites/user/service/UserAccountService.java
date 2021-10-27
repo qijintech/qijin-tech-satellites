@@ -46,4 +46,6 @@ public interface UserAccountService {
      */
     boolean signOut(@NotNull String token);
 
+    String decodePhoneNumber(String encryptedData, String iv);
+
 }

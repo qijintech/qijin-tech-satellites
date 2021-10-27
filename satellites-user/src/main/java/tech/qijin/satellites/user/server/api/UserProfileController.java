@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.qijin.cell.user.db.model.UserProfile;
+import tech.qijin.satellites.user.server.vo.UserProfileResVo;
 import tech.qijin.satellites.user.server.vo.UserUpdateReqVo;
 import tech.qijin.satellites.user.server.vo.UserProfileResVo;
 import tech.qijin.satellites.user.server.vo.UserProfileReqVo;

@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.qijin.satellites.user.annotation.FreeAccess;
-import tech.qijin.satellites.user.server.vo.UserAccountReqVo;
-import tech.qijin.satellites.user.server.vo.UserLoginReqVo;
-import tech.qijin.satellites.user.server.vo.UserLoginResVo;
-import tech.qijin.satellites.user.server.vo.UserResVo;
+import tech.qijin.satellites.user.server.vo.*;
 import tech.qijin.satellites.user.service.UserAccountService;
 import tech.qijin.satellites.user.service.bo.UserBo;
 import tech.qijin.util4j.lang.constant.ResEnum;
@@ -44,7 +41,7 @@ public class UserAccountController {
     private UserAccountService userAccountService;
 
     @FreeAccess
-    @PostMapping("/login/mini")
+    @PostMapping(value = {"/login/mini", "/mini/login"})
     public UserLoginResVo loginMini(@RequestBody @NotNull UserLoginReqVo loginReqVo) {
         MAssert.notBlank(loginReqVo.getCode(), ResEnum.INVALID_PARAM);
         UserBo userBo = userAccountService.signInForMini(loginReqVo.getCode());
@@ -52,6 +49,13 @@ public class UserAccountController {
                 .token(userBo.getToken())
                 .loginStatus(userBo.getLoginStatus())
                 .build();
+    }
+
+    @PostMapping("/mini/mobile")
+    public String decodePhoneNumber(@RequestBody @NotNull UserMobileDecodeReqVo reqVo) {
+        MAssert.notBlank(reqVo.getEncryptedData(), ResEnum.INVALID_PARAM);
+        MAssert.notBlank(reqVo.getIv(), ResEnum.INVALID_PARAM);
+        return userAccountService.decodePhoneNumber(reqVo.getEncryptedData(), reqVo.getIv());
     }
 
     @FreeAccess

@@ -16,6 +16,7 @@ import java.util.Date;
  **/
 @Data
 public class UserProfileResVo {
+
     private Long userId;
 
     private String name;

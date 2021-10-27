@@ -9,6 +9,7 @@ import tech.qijin.cell.user.base.AccountType;
 import tech.qijin.cell.user.base.UserSessionBo;
 import tech.qijin.cell.user.base.WechatRegisterVo;
 import tech.qijin.cell.user.service.CellUserAccountService;
+import tech.qijin.satellites.user.auth.UserUtil;
 import tech.qijin.satellites.user.service.UserAccountService;
 import tech.qijin.satellites.user.service.bo.UserBo;
 import tech.qijin.util4j.aop.annotation.Log;
@@ -92,4 +93,10 @@ public class UserAccountServiceImpl implements UserAccountService {
 //        }
 //        userInfoHelper.insert(userInfo);
 //    }
+
+
+    @Override
+    public String decodePhoneNumber(String encryptedData, String iv) {
+        return cellUserAccountService.decodePhoneNumber(UserUtil.getUserId(), encryptedData, iv);
+    }
 }
