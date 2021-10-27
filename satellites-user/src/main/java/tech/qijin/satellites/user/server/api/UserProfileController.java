@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.qijin.cell.user.db.model.UserProfile;
 import tech.qijin.satellites.user.server.vo.UserUpdateReqVo;
-import tech.qijin.satellites.user.server.vo.UserInfoResVo;
+import tech.qijin.satellites.user.server.vo.UserProfileResVo;
 import tech.qijin.satellites.user.server.vo.UserProfileReqVo;
 import tech.qijin.satellites.user.service.UserProfileService;
 import tech.qijin.satellites.user.service.bo.UserProfileBo;
@@ -45,13 +45,10 @@ public class UserProfileController {
         return userProfileService.update(profile);
     }
 
-    @GetMapping("/detail")
-    public UserInfoResVo infoDetail() {
-//        Optional<UserBo> userBoOpt = userInfoService.getUserInfo();
-//        return userBoOpt.map(
-//                userBo -> ConvertUtil.convert(userBoOpt.get().getUserInfo(), UserInfoResVo.class)
-//        ).orElse(new UserInfoResVo());
-        return null;
+    @GetMapping("/info")
+    public UserProfileResVo getProfile() {
+        UserProfile profile = userProfileService.getUserProfile();
+        return UserProfileResVo.from(profile);
     }
 
     private void checkProfileInfo(UserUpdateReqVo userUpdateReqVo) {

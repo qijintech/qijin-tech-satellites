@@ -34,15 +34,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Timed
     @Override
-    public Optional<UserBo> getUserProfile() {
-//        Long userId = UserUtil.getUserId();
-//        Optional<UserInfo> userInfoOpt = userInfoHelper.getUserInfoByUserId(userId);
-//        return userInfoOpt.map(userInfo -> {
-//            UserBo userBo = new UserBo();
-//            userBo.setUserInfo(userInfoOpt.get());
-//            return Optional.of(userBo);
-//        }).orElse(Optional.empty());
-        return null;
+    public UserProfile getUserProfile() {
+        return userProfileService.getProfile(UserUtil.getUserId());
     }
 
     @Override
