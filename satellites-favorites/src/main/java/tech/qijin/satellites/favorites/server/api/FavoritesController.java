@@ -6,7 +6,7 @@ import tech.qijin.satellites.favorites.server.vo.FavoriteReqVo;
 import tech.qijin.satellites.favorites.server.vo.FavoritesResVo;
 import tech.qijin.satellites.favorites.service.FavoritesService;
 import tech.qijin.satellites.favorites.service.bo.FavoritesBo;
-import tech.qijin.util4j.web.annotation.ChannelRequired;
+import tech.qijin.util4j.web.interceptor.annotation.ChannelRequired;
 import tech.qijin.util4j.web.pojo.ResultVo;
 
 import java.util.List;

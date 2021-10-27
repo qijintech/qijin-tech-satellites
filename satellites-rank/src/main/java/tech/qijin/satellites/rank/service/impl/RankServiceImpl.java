@@ -86,7 +86,7 @@ public class RankServiceImpl implements RankService {
             default:
                 key = getDailyKey(dateTime);
         }
-        Set<ZSetOperations.TypedTuple<String>> sets = redisUtil.zRevRangeWithScore(key, start, start + offset);
+        Set<ZSetOperations.TypedTuple<String>> sets = redisUtil.zReverseRangeWithScore(key, start, start + offset);
         if (CollectionUtils.isEmpty(sets)) {
             return Collections.emptyList();
         }

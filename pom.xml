@@ -46,7 +46,7 @@
 			</dependency>
 			<dependency>
 				<groupId>tech.qijin.sdk</groupId>
-				<artifactId>sdk-depdendencies</artifactId>
+				<artifactId>sdk-tencent</artifactId>
 				<version>${sdk.version}</version>
 				<scope>import</scope>
 				<type>pom</type>

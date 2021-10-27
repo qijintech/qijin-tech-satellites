@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import tech.qijin.satellites.comments.server.vo.CommentReqVo;
 import tech.qijin.satellites.comments.service.CommentService;
 import tech.qijin.satellites.comments.service.bo.CommentBo;
-import tech.qijin.util4j.web.annotation.ChannelRequired;
+import tech.qijin.util4j.web.interceptor.annotation.ChannelRequired;
 import tech.qijin.util4j.web.pojo.ResultVo;
 
 import java.util.List;
