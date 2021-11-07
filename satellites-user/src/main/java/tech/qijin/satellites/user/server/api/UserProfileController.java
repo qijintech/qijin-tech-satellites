@@ -5,10 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.qijin.cell.user.db.model.UserProfile;
+import tech.qijin.satellites.user.server.vo.*;
 import tech.qijin.satellites.user.server.vo.UserProfileResVo;
-import tech.qijin.satellites.user.server.vo.UserUpdateReqVo;
-import tech.qijin.satellites.user.server.vo.UserProfileResVo;
-import tech.qijin.satellites.user.server.vo.UserProfileReqVo;
 import tech.qijin.satellites.user.service.UserProfileService;
 import tech.qijin.satellites.user.service.bo.UserProfileBo;
 import tech.qijin.util4j.lang.constant.ResEnum;
@@ -30,6 +28,11 @@ import tech.qijin.util4j.web.pojo.ResultVo;
 public class UserProfileController {
     @Autowired
     private UserProfileService userProfileService;
+
+    @GetMapping("/basic")
+    public BasicProfileVo basicProfile() {
+        return BasicProfileVo.from(userProfileService.getUserProfile());
+    }
 
     @PostMapping("/mini/update")
     public ResultVo updateProfileForMini(@RequestBody UserProfileReqVo profileReqVo) {
