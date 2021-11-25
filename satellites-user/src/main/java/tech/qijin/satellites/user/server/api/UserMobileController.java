@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import tech.qijin.satellites.user.annotation.FreeAccess;
 import tech.qijin.satellites.user.server.vo.UserMobileReqVo;
 import tech.qijin.satellites.user.service.UserMobileService;
+import tech.qijin.util4j.lang.annotation.FreeAccess;
 
 /**
  * 短信操作接口
