@@ -9,15 +9,13 @@ import tech.qijin.cell.user.base.AccountType;
 import tech.qijin.cell.user.base.UserSessionBo;
 import tech.qijin.cell.user.base.WechatRegisterVo;
 import tech.qijin.cell.user.service.CellUserAccountService;
-import tech.qijin.satellites.user.auth.UserUtil;
+import tech.qijin.util4j.web.util.UserUtil;
 import tech.qijin.satellites.user.service.UserAccountService;
 import tech.qijin.satellites.user.service.bo.UserBo;
 import tech.qijin.util4j.aop.annotation.Log;
 import tech.qijin.util4j.aop.annotation.Timed;
 import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.utils.MAssert;
-
-import javax.validation.constraints.NotNull;
 
 
 /**

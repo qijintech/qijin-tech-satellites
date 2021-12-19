@@ -6,13 +6,9 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import tech.qijin.cell.user.service.CellUserTokenService;
-import tech.qijin.satellites.user.auth.UserUtil;
-import tech.qijin.satellites.user.auth.pojo.User;
+import tech.qijin.util4j.web.util.UserUtil;
+import tech.qijin.util4j.web.pojo.User;
 import tech.qijin.util4j.lang.annotation.FreeAccess;
-import tech.qijin.util4j.lang.constant.ResEnum;
-import tech.qijin.util4j.redis.RedisUtil;
-import tech.qijin.util4j.utils.ConvertUtil;
-import tech.qijin.util4j.utils.MAssert;
 import tech.qijin.util4j.web.util.ServletUtil;
 
 import javax.servlet.http.HttpServletRequest;

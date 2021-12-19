@@ -3,7 +3,7 @@ package tech.qijin.satellites.user.server.api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tech.qijin.satellites.user.auth.UserUtil;
+import tech.qijin.util4j.web.util.UserUtil;
 import tech.qijin.satellites.user.server.vo.UserImageReqVo;
 import tech.qijin.satellites.user.service.UserImageService;
 

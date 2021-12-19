@@ -6,17 +6,14 @@ import org.springframework.stereotype.Service;
 import tech.qijin.cell.user.base.Gender;
 import tech.qijin.cell.user.db.model.UserProfile;
 import tech.qijin.cell.user.service.CellUserProfileService;
-import tech.qijin.satellites.user.auth.UserUtil;
+import tech.qijin.util4j.web.util.UserUtil;
 import tech.qijin.satellites.user.service.UserProfileService;
-import tech.qijin.satellites.user.service.bo.UserBo;
 import tech.qijin.satellites.user.service.bo.UserProfileBo;
 import tech.qijin.satellites.user.service.observer.ProfileObservable;
 import tech.qijin.satellites.user.service.observer.event.ProfileEvent;
 import tech.qijin.satellites.user.service.observer.event.ProfileEventType;
 import tech.qijin.util4j.aop.annotation.Timed;
 import tech.qijin.util4j.utils.ConvertUtil;
-
-import java.util.Optional;
 
 /**
  * @author michealyang
