@@ -54,8 +54,8 @@ public class UserProfileResVo {
         UserProfileResVo profileResVo = ConvertUtil.convert(profile, UserProfileResVo.class);
         if (profileResVo != null) {
             // 屏蔽手机号和微信号
-            profileResVo.setMobile("");
-            profileResVo.setWechat("");
+//            profileResVo.setMobile("");
+//            profileResVo.setWechat("");
             if (profile.getBirthday() != null) {
                 profileResVo.setBirthdayNum(profile.getBirthday().getTime() / 1000);
                 profileResVo.setBirthdayDay(DateUtil.formatStr(profile.getBirthday(), "yyyy-MM-dd"));

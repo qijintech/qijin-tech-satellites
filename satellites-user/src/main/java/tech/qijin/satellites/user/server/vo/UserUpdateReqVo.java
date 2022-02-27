@@ -25,6 +25,8 @@ public class UserUpdateReqVo {
     @Nullable
     private String mobile;
     @Nullable
+    private String wechat;
+    @Nullable
     private String edu;
     @Nullable
     private String eduDegree;
@@ -41,6 +43,8 @@ public class UserUpdateReqVo {
     // 身高
     @Nullable
     private String height;
+    @Nullable
+    private String weight;
     // 婚姻状况
     @Nullable
     private MaritalStatus maritalStatus;

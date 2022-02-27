@@ -21,6 +21,7 @@ public class UserProfileReqVo {
     private String email;
     @Nullable
     private String mobile;
+    private String wechat;
     @Nullable
     private String address;
     @Nullable
