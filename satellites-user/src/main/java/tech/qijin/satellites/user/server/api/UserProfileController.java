@@ -9,11 +9,13 @@ import tech.qijin.satellites.user.server.vo.*;
 import tech.qijin.satellites.user.server.vo.UserProfileResVo;
 import tech.qijin.satellites.user.service.UserProfileService;
 import tech.qijin.satellites.user.service.bo.UserProfileBo;
+import tech.qijin.sdk.tencent.base.TxAuditScene;
 import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.utils.ConvertUtil;
 import tech.qijin.util4j.utils.MAssert;
 import tech.qijin.util4j.utils.ValidationUtil;
 import tech.qijin.util4j.web.pojo.ResultVo;
+import tech.qijin.util4j.web.util.UserUtil;
 
 /**
  * 用户信息相关接口
