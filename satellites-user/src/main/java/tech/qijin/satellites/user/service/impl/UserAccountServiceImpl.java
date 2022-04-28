@@ -4,11 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tech.qijin.cell.user.base.EmailRegisterVo;
-import tech.qijin.cell.user.base.AccountType;
-import tech.qijin.cell.user.base.UserSessionBo;
-import tech.qijin.cell.user.base.WechatRegisterVo;
+import tech.qijin.cell.user.base.*;
 import tech.qijin.cell.user.service.CellUserAccountService;
+import tech.qijin.satellites.user.base.CacheKey;
+import tech.qijin.util4j.redis.RedisUtil;
 import tech.qijin.util4j.web.util.UserUtil;
 import tech.qijin.satellites.user.service.UserAccountService;
 import tech.qijin.satellites.user.service.bo.UserBo;
@@ -28,6 +27,8 @@ import tech.qijin.util4j.utils.MAssert;
 public class UserAccountServiceImpl implements UserAccountService {
     @Autowired
     private CellUserAccountService cellUserAccountService;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Timed
     @Log
@@ -57,18 +58,22 @@ public class UserAccountServiceImpl implements UserAccountService {
         UserSessionBo userSessionBo = cellUserAccountService.login(AccountType.MINI_WECHAT,
                 wechatRegisterVo, 0);
         MAssert.notNull(userSessionBo, ResEnum.BAD_GATEWAY);
+        onSigIn(userSessionBo.getUserAccount().getId(), userSessionBo.getUserToken());
         return UserBo.builder()
                 .token(userSessionBo.getUserToken().getToken())
                 .loginStatus(userSessionBo.getLoginStatus())
                 .build();
     }
 
+    private void onSigIn(Long userId, UserToken token) {
+        redisUtil.setString(CacheKey.INSTANCE.userTokenKey(userId), token.getToken(), token.getExpire());
+    }
+
     @Timed
     @Log
     @Override
     public boolean signOut(String token) {
-//        return RedisUtil.(token) == 1;
-        return false;
+        return redisUtil.delete(CacheKey.INSTANCE.userTokenKey(UserUtil.getUserId()));
     }
 
 //    private String genAndSaveToken(UserAccount userAccount) {
