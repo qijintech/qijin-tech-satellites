@@ -25,14 +25,18 @@ public class UploaderController {
 
 
     @PostMapping(value = "/image")
-    public UploadVo imgUpdate(@RequestParam("file") MultipartFile file) throws IOException {
-        UploadBo uploadBo = uploadService.upload(FileType.IMG, file);
+    public UploadVo imgUpdate(@RequestParam("file") MultipartFile file,
+                              @RequestParam(value = "w", required = false) Integer w,
+                              @RequestParam(value = "h", required = false) Integer h) throws IOException {
+        UploadBo uploadBo = uploadService.upload(FileType.IMG, file, w, h);
         return ConvertUtil.convert(uploadBo, UploadVo.class);
     }
 
     @PostMapping(value = "/file")
-    public UploadVo fileUpdate(@RequestParam("file") MultipartFile file) throws IOException {
-        UploadBo uploadBo = uploadService.upload(FileType.FILE, file);
+    public UploadVo fileUpdate(@RequestParam("file") MultipartFile file,
+                               @RequestParam(value = "w", required = false) Integer w,
+                               @RequestParam(value = "h", required = false) Integer h) throws IOException {
+        UploadBo uploadBo = uploadService.upload(FileType.FILE, file, w, h);
         return ConvertUtil.convert(uploadBo, UploadVo.class);
     }
 }

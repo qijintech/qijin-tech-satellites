@@ -7,5 +7,5 @@ import tech.qijin.satellites.uploader.service.bo.UploadBo;
 import java.io.IOException;
 
 public interface UploadService {
-    UploadBo upload(FileType fileType, MultipartFile file) throws IOException;
+    UploadBo upload(FileType fileType, MultipartFile file, Integer w, Integer h) throws IOException;
 }

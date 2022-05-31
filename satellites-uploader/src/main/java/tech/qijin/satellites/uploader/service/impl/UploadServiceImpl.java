@@ -13,6 +13,8 @@ import tech.qijin.sdk.tencent.cloud.base.COSScene;
 import tech.qijin.sdk.tencent.cloud.pojo.CosUploadVo;
 import tech.qijin.sdk.tencent.cloud.pojo.TxCosType;
 import tech.qijin.util4j.utils.FileUtil;
+import tech.qijin.util4j.utils.ImageUtil;
+import tech.qijin.util4j.utils.NumberUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,14 +23,18 @@ import java.io.IOException;
 public class UploadServiceImpl implements UploadService {
     @Autowired
     private TxCosService txCosService;
+    private int defaultWH = 800;
 
     @Override
-    public UploadBo upload(FileType fileType, MultipartFile file) throws IOException {
+    public UploadBo upload(FileType fileType, MultipartFile file, Integer w, Integer h) throws IOException {
         String fileName = file.getOriginalFilename();
 //        String prefixName = FileUtil.prefix(fileName);
 //        String suffixName = FileUtil.suffix(fileName);
         File newFile = new File(fileName);
         FileUtils.copyInputStreamToFile(file.getInputStream(), newFile);
+        if (!NumberUtil.gtZero(w)) w = defaultWH;
+        if (!NumberUtil.gtZero(h)) h = defaultWH;
+        File compressedFile = ImageUtil.compressByWidthAndHeight(newFile, w, h, false);
         COSScene cosScene = null;
         switch (fileType) {
             case FILE:
@@ -44,7 +50,7 @@ public class UploadServiceImpl implements UploadService {
                 cosScene = COSScene.VIDEO;
                 break;
         }
-        CosUploadVo cosUploadVo = txCosService.uploadFile(cosScene, newFile);
+        CosUploadVo cosUploadVo = txCosService.uploadFile(cosScene, compressedFile);
         return new UploadBo(fileName, cosUploadVo.getUrl());
     }
 }

@@ -17,6 +17,10 @@ public class UserProfileBo {
     @Nullable
     private String avatar;
     @Nullable
+    private String wechatName;
+    @Nullable
+    private String wechatAvatar;
+    @Nullable
     private Integer gender;
     @Nullable
     private String email;
