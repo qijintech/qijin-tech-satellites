@@ -13,6 +13,7 @@ import tech.qijin.cell.user.base.LoginStatus;
 @Builder
 public class UserBo {
 //    private UserInfo userInfo;
+    private Long userId;
     private String token;
     private LoginStatus loginStatus;
 }

@@ -46,6 +46,7 @@ public class UserAccountController {
         MAssert.notBlank(loginReqVo.getCode(), ResEnum.INVALID_PARAM);
         UserBo userBo = userAccountService.signInForMini(loginReqVo.getCode());
         return UserLoginResVo.builder()
+                .userId(userBo.getUserId())
                 .token(userBo.getToken())
                 .loginStatus(userBo.getLoginStatus())
                 .build();

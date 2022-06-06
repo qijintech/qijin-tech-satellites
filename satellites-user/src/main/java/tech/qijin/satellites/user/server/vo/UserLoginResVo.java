@@ -7,6 +7,7 @@ import tech.qijin.cell.user.base.LoginStatus;
 @Data
 @Builder
 public class UserLoginResVo {
+    private Long userId;
     private String token;
     private LoginStatus loginStatus;
 }

@@ -6,6 +6,9 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import tech.qijin.cell.user.service.CellUserTokenService;
+import tech.qijin.util4j.lang.constant.ResEnum;
+import tech.qijin.util4j.utils.MAssert;
+import tech.qijin.util4j.utils.NumberUtil;
 import tech.qijin.util4j.web.util.UserUtil;
 import tech.qijin.util4j.web.pojo.User;
 import tech.qijin.util4j.lang.annotation.FreeAccess;
@@ -33,8 +36,16 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
         Method method = ((HandlerMethod) handler).getMethod();
+        Optional<String> tokenOpt = ServletUtil.getHeader(request, "token");
 
         if (method.getAnnotation(FreeAccess.class) != null) {
+            if (tokenOpt.isPresent()) {
+                Long userId = cellUserTokenService.auth(tokenOpt.get());
+                User user = new User();
+                user.setUserId(userId);
+                UserUtil.setUser(user);
+                return true;
+            }
             return true;
         }
 
@@ -44,9 +55,9 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        Optional<String> tokenOpt = ServletUtil.getHeader(request, "token");
         return tokenOpt.map(token -> {
             Long userId = cellUserTokenService.auth(token);
+            MAssert.isTrue(NumberUtil.gtZero(userId), ResEnum.UNAUTHORIZED);
             User user = new User();
             user.setUserId(userId);
             UserUtil.setUser(user);

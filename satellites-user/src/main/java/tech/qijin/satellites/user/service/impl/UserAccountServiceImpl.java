@@ -60,6 +60,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         MAssert.notNull(userSessionBo, ResEnum.BAD_GATEWAY);
         onSigIn(userSessionBo.getUserAccount().getId(), userSessionBo.getUserToken());
         return UserBo.builder()
+                .userId(userSessionBo.getUserAccount().getId())
                 .token(userSessionBo.getUserToken().getToken())
                 .loginStatus(userSessionBo.getLoginStatus())
                 .build();
