@@ -5,6 +5,7 @@ import tech.qijin.satellites.user.service.observer.event.ProfileEvent;
 
 import java.util.Observable;
 
+@Deprecated
 @Service
 public class ProfileObservable extends Observable {
 

@@ -2,6 +2,7 @@ package tech.qijin.satellites.user.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import tech.qijin.cell.user.db.model.UserImage;
 import tech.qijin.cell.user.db.model.UserProfile;
@@ -16,7 +17,7 @@ import tech.qijin.satellites.user.service.observer.event.ProfileEventType;
 @Service
 public class UserImageServiceImpl implements UserImageService {
     @Autowired
-    private ProfileObservable profileObservable;
+    private ApplicationEventPublisher eventPublisher;
     @Autowired
     private CellUserImageService cellUserImageService;
     @Autowired
@@ -31,7 +32,7 @@ public class UserImageServiceImpl implements UserImageService {
             cellUserProfileService.updateProfile(profile);
         }
         UserImage userImage = cellUserImageService.addImage(userId, url);
-        profileObservable.notifyEvent(ProfileEvent.builder()
+        eventPublisher.publishEvent(ProfileEvent.builder()
                 .eventType(ProfileEventType.IMAGE)
                 .images(cellUserImageService.listUserImage(userId))
                 .userId(userId)
@@ -68,7 +69,7 @@ public class UserImageServiceImpl implements UserImageService {
             }
             cellUserProfileService.updateProfile(profile);
         }
-        profileObservable.notifyEvent(ProfileEvent.builder()
+        eventPublisher.publishEvent(ProfileEvent.builder()
                 .eventType(ProfileEventType.IMAGE)
                 .images(cellUserImageService.listUserImage(userId))
                 .userId(userId)

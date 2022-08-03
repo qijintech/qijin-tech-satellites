@@ -6,6 +6,7 @@ import tech.qijin.util4j.lang.observer.AbstractObserver;
 
 import javax.annotation.PostConstruct;
 
+@Deprecated
 public abstract class AbstractProfileObserver extends AbstractObserver<ProfileEvent> {
     @Autowired
     private ProfileObservable observable;

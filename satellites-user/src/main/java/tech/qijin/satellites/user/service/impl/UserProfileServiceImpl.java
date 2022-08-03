@@ -3,6 +3,7 @@ package tech.qijin.satellites.user.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import tech.qijin.cell.user.base.Gender;
 import tech.qijin.cell.user.db.model.UserProfile;
@@ -36,11 +37,11 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Autowired
     private CellUserProfileService userProfileService;
     @Autowired
-    private ProfileObservable profileObservable;
-    @Autowired
     private TxMiniAuditService txMiniAuditService;
     @Autowired
     private CellUserAccountService cellUserAccountService;
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     @Timed
     @Override
@@ -54,7 +55,7 @@ public class UserProfileServiceImpl implements UserProfileService {
         profile.setUserId(userId);
         checkContent(profile);
         boolean res = userProfileService.updateProfile(profile);
-        profileObservable.notifyEvent(ProfileEvent.builder()
+        eventPublisher.publishEvent(ProfileEvent.builder()
                 .eventType(ProfileEventType.PROFILE)
                 .profile(userProfileService.getProfile(userId))
                 .userId(userId)
@@ -77,12 +78,12 @@ public class UserProfileServiceImpl implements UserProfileService {
         }
 
         userProfileService.updateProfile(userProfile);
-//        profileObservable.notifyEvent(ProfileEvent.builder()
-//                .eventType(ProfileEventType.PROFILE)
-//                .profile(userProfileService.getProfile(userId))
-//                .userId(userId)
-//                .isGenderChanged(profile.getGender() != null)
-//                .build());
+        eventPublisher.publishEvent(ProfileEvent.builder()
+                .eventType(ProfileEventType.PROFILE)
+                .profile(userProfileService.getProfile(userId))
+                .userId(userId)
+                .isGenderChanged(userProfileBo.getGender() != null)
+                .build());
     }
 
     private void checkContent(UserProfile profile) {

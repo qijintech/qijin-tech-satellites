@@ -9,6 +9,7 @@ import tech.qijin.cell.user.service.CellUserTokenService;
 import tech.qijin.util4j.lang.constant.ResEnum;
 import tech.qijin.util4j.utils.MAssert;
 import tech.qijin.util4j.utils.NumberUtil;
+import tech.qijin.util4j.utils.Util;
 import tech.qijin.util4j.web.util.UserUtil;
 import tech.qijin.util4j.web.pojo.User;
 import tech.qijin.util4j.lang.annotation.FreeAccess;
@@ -40,7 +41,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         if (method.getAnnotation(FreeAccess.class) != null) {
             if (tokenOpt.isPresent()) {
-                Long userId = cellUserTokenService.auth(tokenOpt.get());
+                Long userId = Util.runIgnoreEx(() -> cellUserTokenService.auth(tokenOpt.get()), 0L);
                 User user = new User();
                 user.setUserId(userId);
                 UserUtil.setUser(user);
@@ -55,14 +56,15 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        return tokenOpt.map(token -> {
-            Long userId = cellUserTokenService.auth(token);
+        if (tokenOpt.isPresent()) {
+            Long userId = cellUserTokenService.auth(tokenOpt.get());
             MAssert.isTrue(NumberUtil.gtZero(userId), ResEnum.UNAUTHORIZED);
             User user = new User();
             user.setUserId(userId);
             UserUtil.setUser(user);
             return true;
-        }).orElse(false);
+        }
+        return false;
     }
 
 
