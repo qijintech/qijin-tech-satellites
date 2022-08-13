@@ -12,6 +12,7 @@ import tech.qijin.satellites.user.service.UserImageService;
 import tech.qijin.satellites.user.service.observer.ProfileObservable;
 import tech.qijin.satellites.user.service.observer.event.ProfileEvent;
 import tech.qijin.satellites.user.service.observer.event.ProfileEventType;
+import tech.qijin.util4j.web.util.UserUtil;
 
 @Slf4j
 @Service
@@ -28,6 +29,7 @@ public class UserImageServiceImpl implements UserImageService {
         UserImage firstImage = cellUserImageService.getFirstImage(userId);
         if (firstImage == null) {
             UserProfile profile = new UserProfile();
+            profile.setUserId(UserUtil.getUserId());
             profile.setCover(url);
             cellUserProfileService.updateProfile(profile);
         }
@@ -62,6 +64,7 @@ public class UserImageServiceImpl implements UserImageService {
         if (firstImage != null && firstImage.getId().equals(id)) {
             firstImage = cellUserImageService.getFirstImage(userId);
             UserProfile profile = new UserProfile();
+            profile.setUserId(UserUtil.getUserId());
             if (firstImage == null) {
                 profile.setCover("");
             } else {
