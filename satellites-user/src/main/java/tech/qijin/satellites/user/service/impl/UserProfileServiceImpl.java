@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import tech.qijin.cell.user.base.Config;
 import tech.qijin.cell.user.base.Gender;
 import tech.qijin.cell.user.db.model.UserProfile;
 import tech.qijin.cell.user.service.CellUserAccountService;
@@ -87,6 +88,8 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     private void checkContent(UserProfile profile) {
+        if (Config.whitelist.contains(profile.getUserId())) return;
+
         String openid = cellUserAccountService.getOpenid(profile.getUserId());
         if (StringUtils.isNotBlank(profile.getName())) {
             MAssert.isTrue(txMiniAuditService.checkMsg(openid, profile.getName(), TxAuditScene.PROFILE), ResEnum.RISK_CONTENT);
