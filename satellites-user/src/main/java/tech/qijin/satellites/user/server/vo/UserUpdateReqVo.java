@@ -16,6 +16,9 @@ import java.util.Date;
 public class UserUpdateReqVo {
     @Nullable
     private String name;
+
+    @Nullable
+    private String nickname;
     @Nullable
     private String avatar;
     @Nullable
